@@ -11,5 +11,8 @@ if __name__ == '__main__':
     Today_date = datetime.today().strftime("%Y%m%d")
     print_hi('PyCharm')
     pykrx_scratch(From_date, Today_date)
-    # 1. krx daily chart update
-    # 2. reading train set
+
+    # 1. Krx daily chart update
+    # 2. Reading train set
+    # 3. Showing chart
+    # 4. Feature extraction
