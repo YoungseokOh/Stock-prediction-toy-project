@@ -3,12 +3,13 @@ from pykrx import stock
 import pandas as pd
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
-import os
+import os, glob
+
+Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 
 def pykrx_scratch(date_Start, date_End):
     print("Reading Daily Chart ... {} - {}".format(date_Start, date_End))
     # create main folder
-    Krx_Char_folder_path = 'E:/Krx_Chart_folder'
     if not os.path.exists(Krx_Char_folder_path):
         os.mkdir(Krx_Char_folder_path)
     # ticker scratch
@@ -27,7 +28,30 @@ def pykrx_scratch(date_Start, date_End):
         print('{} Daily chart is written! ==== ticker is : {}'.format(stock_name, ticker))
     print('Scratching daily chart is done!')
 
-def pykrx_read_csv():
+def search(data_path, extension):
+    """Returns the list of files have extension (only current directory)
+    Args:
+        data_path (str): data path
+        extension (str): extension
+    Returns:
+        file_list (list): file list with path
+   """
+    file_list = []
+    for filename in os.listdir(data_path):
+        ext = os.path.splitext(filename)[-1]
+        if ext == extension:
+            file_list.append(data_path+'/'+filename)
+    return file_list
+
+def pykrx_read_csv(stock_name):
+    folder_list = os.listdir(Krx_Char_folder_path)
+    condition = '.csv'
+    csv_file_path = search(Krx_Char_folder_path + '/' + stock_name, condition)
+    if os.path.exists(csv_file_path[0]):
+        stock_csv = pd.read_csv(csv_file_path[0])
+    else:
+        print('Can''t find csv file!')
+    return stock_csv
     print('read done!')
 
 def pykrx_read_train_set():

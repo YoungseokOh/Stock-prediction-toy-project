@@ -10,7 +10,9 @@ if __name__ == '__main__':
     From_date = '20190101'
     Today_date = datetime.today().strftime("%Y%m%d")
     print_hi('PyCharm')
-    pykrx_scratch(From_date, Today_date)
+    #pykrx_scratch(From_date, Today_date)
+    stock_name = "코리아센터"
+    stock_csv = pykrx_read_csv(stock_name)
 
     # 1. Krx daily chart update
     # 2. Reading train set
