@@ -14,6 +14,7 @@ if __name__ == '__main__':
     stock_name = "코리아센터"
     stock_csv = pykrx_read_csv(stock_name)
 
+    # 오줌이바보
     # 1. Krx daily chart update
     # 2. Reading train set
     # 3. Showing chart
