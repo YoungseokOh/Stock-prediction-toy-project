@@ -4,8 +4,10 @@ import pandas as pd
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
 import os, glob
-
+from datetime import datetime
+import numpy as np
 Krx_Char_folder_path = 'E:/Krx_Chart_folder'
+condition = '.csv'
 
 def pykrx_scratch(date_Start, date_End):
     print("Reading Daily Chart ... {} - {}".format(date_Start, date_End))
@@ -20,13 +22,31 @@ def pykrx_scratch(date_Start, date_End):
         df = stock.get_market_ohlcv_by_date(date_Start, date_End, ticker)
         df = df.reset_index()
         #print(len(df))
-        df.insert(5, '종가2', df['종가'])
+        df.insert(5, '수정종가', df['종가'])
         # folder check
         if not os.path.exists(Krx_Char_folder_path + '/' + stock_name):
             os.mkdir(Krx_Char_folder_path + '/' + stock_name)
         df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0', index=False, header=False)
         print('{} Daily chart is written! ==== ticker is : {}'.format(stock_name, ticker))
     print('Scratching daily chart is done!')
+
+def pykrx_daily_update():
+    #today_date = datetime.today().strftime("%Y%m%d")
+    today_date = '20210223'
+    df = stock.get_market_ohlcv_by_ticker(today_date, market="ALL")
+    df = df.reset_index()
+    del df['거래대금']
+    del df['등락률']
+    df_format = df
+    df.insert(5, '수정종가', df['종가'])
+    count = 0
+    for ticker in df['티커']:
+        stock_name = stock.get_market_ticker_name(ticker)
+        ticker_csv = pykrx_read_csv(stock_name)
+        df_list = list(np.array(df.iloc[i].tolist()))
+        df_list[0] = datetime.today().strftime("%Y-%m-%d")
+        df_save = ticker_csv.append(pd.Series(df_list, index=ticker_csv.columns), ignore_index=True)
+        count += 1
 
 def search(data_path, extension):
     """Returns the list of files have extension (only current directory)
@@ -44,8 +64,6 @@ def search(data_path, extension):
     return file_list
 
 def pykrx_read_csv(stock_name):
-    folder_list = os.listdir(Krx_Char_folder_path)
-    condition = '.csv'
     csv_file_path = search(Krx_Char_folder_path + '/' + stock_name, condition)
     if os.path.exists(csv_file_path[0]):
         stock_csv = pd.read_csv(csv_file_path[0])
