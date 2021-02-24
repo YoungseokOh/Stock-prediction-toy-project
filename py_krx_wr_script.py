@@ -27,7 +27,7 @@ def pykrx_scratch(date_Start, date_End):
         if not os.path.exists(Krx_Char_folder_path + '/' + stock_name):
             os.mkdir(Krx_Char_folder_path + '/' + stock_name)
         df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0', index=False, header=False)
-        print('{} Daily chart is written! ==== ticker is : {}'.format(stock_name, ticker))
+        print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
     print('Scratching daily chart is done!')
 
 def pykrx_daily_update():
@@ -46,6 +46,9 @@ def pykrx_daily_update():
         df_list = list(np.array(df.iloc[i].tolist()))
         df_list[0] = datetime.today().strftime("%Y-%m-%d")
         df_save = ticker_csv.append(pd.Series(df_list, index=ticker_csv.columns), ignore_index=True)
+        df_save.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0', index=False,
+                  header=False)
+        print('{} Daily chart update is done!'.format(stock_name))
         count += 1
 
 def search(data_path, extension):
@@ -72,13 +75,13 @@ def pykrx_read_csv(stock_name):
     return stock_csv
     print('read done!')
 
-def pykrx_read_train_set():
-
-    # print(df.iloc[:, 4:5].tail())
-    # minmax = MinMaxScaler().fit(df.iloc[:, 4:5].astype('float32'))  # Close index
-    # df_log = minmax.transform(df.iloc[:, 4:5].astype('float32'))  # Close index
-    # df_log = pd.DataFrame(df_log)
-    # df_log.head()
-    # df_train = df_log
-    # df.shape, df_train.shape
-    print('read done!')
+def pykrx_read_train_set(stock_csv):
+     df = stock_csv
+     print(df.iloc[:, 4:5].tail())
+     minmax = MinMaxScaler().fit(df.iloc[:, 4:5].astype('float32'))  # Close index
+     df_log = minmax.transform(df.iloc[:, 4:5].astype('float32'))  # Close index
+     df_log = pd.DataFrame(df_log)
+     df_log.head()
+     df_train = df_log
+     df.shape, df_train.shape
+     print('read done!')

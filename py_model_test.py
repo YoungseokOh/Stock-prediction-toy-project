@@ -38,7 +38,7 @@ test_size = 30
 learning_rate = 0.0001
 
 date_Start = '20200101'
-stock_input = "코리아센터"
+stock_input = "에이스테크"
 date_End = datetime.today().strftime("%Y%m%d")
 
 print("Daily candle dates {} - {}".format(date_Start, date_End))
@@ -65,23 +65,6 @@ df_log.head()
 df_train = df_log
 df_korea.shape, df_train.shape
 
-class Monitor(Thread):
-    def __init__(self, delay):
-        super(Monitor, self).__init__()
-        self.stopped = False
-        self.delay = delay  # Time between calls to GPUtil
-        self.start()
-
-    def run(self):
-        while not self.stopped:
-            GPUtil.showUtilization()
-            time.sleep(self.delay)
-
-    def stop(self):
-        self.stopped = True
-
-monitor = Monitor(10)
-monitor.stop()
 class Model:
    def __init__(
            self,
@@ -251,6 +234,7 @@ for i in range(len(accepted_results[no])):
        sum = sum + accepted_results[k][i]
    avg_list.append(sum / len(accepted_results))
    median_list.append(statistics.median(median_results))
+
 plt.plot(avg_list, label='Avg forecast', c='red', linewidth=1.2)
 plt.plot(median_list, label='Avg forecast', c='blue', linewidth=1.2)
 plt.plot(df_korea['종가'], label='true trend', c='black', linewidth=1.8)
