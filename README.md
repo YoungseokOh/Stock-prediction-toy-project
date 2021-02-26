@@ -1,4 +1,4 @@
-## Stock_Prediction_Toy_Project
+# Stock_Prediction_Toy_Project
 >### Setup
 ```
 python 3.7
