@@ -2,7 +2,7 @@
 
 ## Requirement
 
-### python 3.7
-### Tensorflow <= 1.14
-### finta, matplotlib, pandas, pykrx
+##### python 3.7
+##### Tensorflow <= 1.14
+##### finta, matplotlib, pandas, pykrx
 
