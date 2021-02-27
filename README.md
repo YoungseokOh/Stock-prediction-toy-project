@@ -7,7 +7,7 @@ finta, matplotlib, pandas, pykrx
 ```
 
 >### To do list
-```
+
 ~~1. Krx daily chart update~~
 ~~2. Reading train set~~
 3. Showing chart
@@ -16,4 +16,4 @@ finta, matplotlib, pandas, pykrx
 6. Beat or lose
 7. EPS/DIV ... save in csv
 8. Searching 52 weeks high - highest price
-```
+
