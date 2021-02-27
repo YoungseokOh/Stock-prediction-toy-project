@@ -15,5 +15,5 @@
 5. Technical Indicator save in csv
 6. Beat or lose
 7. EPS/DIV ... save in csv
-8. Searching 52 weeks high - highest price
+8. Searching 52 weeks high - highest price (Clear)
 ```
