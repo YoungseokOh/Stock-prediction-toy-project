@@ -8,8 +8,8 @@ finta, matplotlib, pandas, pykrx
 
 >### To do list
 ```
-1. Krx daily chart update (clear)
-2. Reading train set (Clear)
+~~1. Krx daily chart update~~
+~~2. Reading train set~~
 3. Showing chart
 4. Feature extraction
 5. Technical Indicator save in csv
