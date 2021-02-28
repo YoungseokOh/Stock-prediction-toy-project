@@ -19,6 +19,8 @@ def stock_52w_update(Krx_Char_folder_path):
     stock_list_52w = []
     count = 0
     for stock_name in krx_list:
+        if '스팩' in stock_name:
+            continue
         stock_csv = pykrx_read_csv(stock_name)
         close_price_day = stock_csv.iloc[len(stock_csv) - 1]['close']
         stock_52w_csv = stock_csv[stock_csv['date'] >= (one_year_ago).strftime("%Y-%m-%d")]
@@ -37,7 +39,7 @@ def stock_52w_update(Krx_Char_folder_path):
             gap_percentage = round(((close_price_day / high_price_52w) * 100) - 100, 4)
             print('{} is already hit the 52 weeks target! Going up {}%'.format(stock_name, gap_percentage))
     df = pd.DataFrame(stock_list_52w)
-    df = df.rename(columns={0 :'stock',1 : 'date', 2 : 'gap', 3 : 'high'})
+    df = df.rename(columns={0 :'stock', 1 : 'date', 2: 'gap', 3 : 'high'})
     df_csv = df.sort_values(by='gap', ascending=True)
     df_csv.to_csv('results/' + '52_weeks_analysis.csv', encoding='utf-8', index=False, header=True)
     return df_csv
