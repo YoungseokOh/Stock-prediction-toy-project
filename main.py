@@ -1,8 +1,3 @@
-# Requirement
-# python 3.7
-# Tensorflow <= 1.14
-# finta, matplotlib, pandas, pykrx
-
 from krx_wr_script import *
 from stock_52_weeks_analysis import *
 from datetime import datetime, timedelta
@@ -16,6 +11,7 @@ Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 
 if __name__ == '__main__':
     From_date = '20190101'
+    base_year = '2021-01-01' # When youu don't wanna know this year 52 weeks high price
     stock_name = "부광약품"
     today_date = datetime.today().strftime("%Y%m%d")
     # Test...
@@ -37,4 +33,9 @@ if __name__ == '__main__':
     one_year_ago = datetime.now() - timedelta(days=365)
     gap_prcentage, high_price_52w = stock_52w_gap_percentage(stock_name, one_year_ago)
     print('Gap is {}% from {}원'.format(round(gap_prcentage,4), format(high_price_52w, ',')))
-    df_52w_csv = stock_52w_update(Krx_Char_folder_path)
+    results_52w_csv = 'results/' + '52_weeks_analysis_' + datetime.today().strftime("%Y-%m-%d") + '.csv'
+    if not os.path.exists(results_52w_csv):
+        df_52w_csv = stock_52w_update(Krx_Char_folder_path)
+    else:
+        df_52w_csv = pd.read_csv(results_52w_csv)
+    base_52w_csv = base_year_52_weeks_update(df_52w_csv, base_year)
