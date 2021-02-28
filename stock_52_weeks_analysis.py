@@ -41,6 +41,6 @@ def stock_52w_update(Krx_Char_folder_path):
     df = pd.DataFrame(stock_list_52w)
     df = df.rename(columns={0 :'stock', 1 : 'date', 2: 'gap', 3 : 'high'})
     df_csv = df.sort_values(by='gap', ascending=True)
-    df_csv.to_csv('results/' + '52_weeks_analysis.csv', encoding='utf-8', index=False, header=True)
+    df_csv.to_csv('results/' + '52_weeks_analysis_{}.csv'.format(datetime.today().strftime("%Y-%m-%d")), encoding='utf-8', index=False, header=True)
     return df_csv
 
