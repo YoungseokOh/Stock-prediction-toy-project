@@ -38,7 +38,7 @@ test_size = 30
 learning_rate = 0.0001
 
 date_Start = '20200101'
-stock_input = "에이스테크"
+stock_input = "코리아센터"
 date_End = datetime.today().strftime("%Y%m%d")
 
 print("Daily candle dates {} - {}".format(date_Start, date_End))

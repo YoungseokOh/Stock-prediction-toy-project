@@ -13,14 +13,15 @@ if __name__ == '__main__':
     From_date = '20190101'
     base_year = '2021-01-01' # When youu don't wanna know this year 52 weeks high price
     stock_name = "부광약품"
+    listed_year = 2021
     today_date = datetime.today().strftime("%Y%m%d")
     # Test...
     # monitor = Monitor(10) #GPU Monitor
     # monitor.stop()
-    # pykrx_scratch(From_date, today_date) # KOSPI & KOSDAQ all stock scratch
+    pykrx_scratch(From_date, today_date) # KOSPI & KOSDAQ all stock scratch
     # pykrx_daily_update()
-    stock_csv = pykrx_read_csv(stock_name)
-    #trainer = Model(opt)
+    # stock_csv = pykrx_read_csv(stock_name)
+    # trainer = Model(opt)
 
     # Showing chart test...
     # print(TA.RSI(stock_csv).tail())
@@ -38,4 +39,8 @@ if __name__ == '__main__':
         df_52w_csv = stock_52w_update(Krx_Char_folder_path)
     else:
         df_52w_csv = pd.read_csv(results_52w_csv)
+
+    # Make an exception of daily hit the high price
     base_52w_csv = base_year_52_weeks_update(df_52w_csv, base_year)
+
+    search_listed_stock(listed_year)

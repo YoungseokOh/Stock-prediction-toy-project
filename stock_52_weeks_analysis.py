@@ -4,8 +4,10 @@ from datetime import datetime, timedelta
 from krx_wr_script import *
 import os
 
-# def search_listed_stock():
-
+def search_listed_stock(year):
+    base_date = ['0101', '1231']
+    base_year = str(year) + base_date[1]
+    one_year_ago = str(year - 1) + base_date[0]
 
 def stock_52w_gap_percentage(stock_name, one_year_ago):
     stock_csv = pykrx_read_csv(stock_name)
