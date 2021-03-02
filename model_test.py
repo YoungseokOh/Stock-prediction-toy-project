@@ -28,7 +28,7 @@ sns.set()
 tf.compat.v1.random.set_random_seed(1234)
 warnings.filterwarnings("ignore")
 
-simulation_size = 10
+simulation_size = 5
 num_layers = 2
 size_layer = 256
 timestamp = 10
@@ -38,7 +38,7 @@ test_size = 30
 learning_rate = 0.0001
 
 date_Start = '20200101'
-stock_input = "코리아센터"
+stock_input = "SK바이오팜"
 date_End = datetime.today().strftime("%Y%m%d")
 
 print("Daily candle dates {} - {}".format(date_Start, date_End))
