@@ -43,4 +43,4 @@ if __name__ == '__main__':
     # Make an exception of daily hit the high price
     base_52w_csv = base_year_52_weeks_update(df_52w_csv, base_year)
 
-    search_listed_stock(listed_year)
+    #search_listed_stock(listed_year)

@@ -24,23 +24,32 @@ def search(data_path, extension):
             file_list.append(data_path+'/'+filename)
     return file_list
 
+def pykrx_save_csv(ticker, date_Start, date_End):
+    stock_name = stock.get_market_ticker_name(ticker)
+    stock_folder_name = stock_name + '_' + ticker
+    df = stock.get_market_ohlcv_by_date(date_Start, date_End, ticker)
+    df = df.reset_index()
+    df = df.rename(columns={'날짜': 'date', '시가': 'open', '고가': 'high', '저가': 'low', '종가': 'close', '거래량': 'volume'})
+    if not os.path.exists(Krx_Char_folder_path + '/' + stock_name):
+        os.mkdir(Krx_Char_folder_path + '/' + stock_name)
+    df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0',
+              index=False, header=True)
+    print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
+
 def pykrx_scratch(date_Start, date_End):
     print("Reading Daily Chart ... {} - {}".format(date_Start, date_End))
     # create main folder
     if not os.path.exists(Krx_Char_folder_path):
         os.mkdir(Krx_Char_folder_path)
     # ticker scratch
-    for ticker in stock.get_market_ticker_list(market="ALL"):
-        stock_name = stock.get_market_ticker_name(ticker)
-        stock_folder_name = stock_name + '_' + ticker
-        df = stock.get_market_ohlcv_by_date(date_Start, date_End, ticker)
-        df = df.reset_index()
-        df = df.rename(columns={'날짜': 'date', '시가': 'open', '고가': 'high', '저가': 'low', '종가': 'close', '거래량': 'volume'})
-        if not os.path.exists(Krx_Char_folder_path + '/' + stock_name):
-            os.mkdir(Krx_Char_folder_path + '/' + stock_name)
-        df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0',
-                  index=False, header=True)
-        print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
+    KOSPI_ticker_list = stock.get_market_ticker_list(market="KOSPI")
+    KOSDAQ_ticker_list = stock.get_market_ticker_list(market="KOSDAQ")
+    # KOSPI save as csv
+    for ticker_KOSPI in KOSPI_ticker_list:
+        pykrx_save_csv(ticker_KOSPI, date_Start, date_End)
+    # KOSDAQ save as csv
+    for ticker_KOSDAQ in KOSDAQ_ticker_list:
+        pykrx_save_csv(ticker_KOSDAQ, date_Start, date_End)
     print('Scratching daily chart is done!')
 
 def pykrx_daily_update():
