@@ -3,7 +3,7 @@
 ```
 + python 3.7
 + Tensorflow <= 1.14
-+ finta, matplotlib, pandas, pykrx, mpl-finance
+pip install finta matplotlib pandas pykrx mpl-finance seaborn GPUtil scikit-learn tqdm
 ```
 
 >### To do list
