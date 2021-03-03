@@ -3,7 +3,7 @@
 ```
 + python 3.7
 + Tensorflow <= 1.14
-+ finta, matplotlib, pandas, pykrx, mpl-finance
++ finta, matplotlib, pandas, pykrx, mpl-finance, seaborn
 ```
 
 >### To do list
