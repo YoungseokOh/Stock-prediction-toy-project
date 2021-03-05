@@ -2,8 +2,17 @@
 >### Setup
 ```
 + python 3.7
-+ Tensorflow <= 1.14
-pip install finta matplotlib pandas pykrx mpl-finance seaborn GPUtil scikit-learn tqdm
+pip install tensorflow == 1.14
+pip install finta 
+pip install matplotlib
+pip install pandas 
+pip install pykrx 
+pip install mpl-finance
+pip install seaborn 
+pip install GPUtil 
+pip install scikit-learn 
+pip install tqdm
+
 ```
 
 >### To do list

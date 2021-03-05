@@ -38,7 +38,7 @@ test_size = 30
 learning_rate = 0.0001
 
 date_Start = '20200101'
-stock_input = "SK바이오팜"
+stock_input = "앤씨앤"
 date_End = datetime.today().strftime("%Y%m%d")
 
 print("Daily candle dates {} - {}".format(date_Start, date_End))
@@ -235,8 +235,8 @@ for i in range(len(accepted_results[no])):
    avg_list.append(sum / len(accepted_results))
    median_list.append(statistics.median(median_results))
 
-plt.plot(avg_list, label='Avg forecast', c='red', linewidth=1.2)
-plt.plot(median_list, label='Avg forecast', c='blue', linewidth=1.2)
+plt.plot(avg_list, label='avg forecast', c='red', linewidth=1.2)
+plt.plot(median_list, label='median forecast', c='blue', linewidth=1.2)
 plt.plot(df_korea['종가'], label='true trend', c='black', linewidth=1.8)
 x_range_future = np.arange(len(results[0]))
 plt.xticks(x_range_future[::60], date_ori[::60], fontsize= 7)
