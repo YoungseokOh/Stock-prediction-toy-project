@@ -1,35 +1,30 @@
 import matplotlib.pyplot as plt
 
-def plot_technical_indicators(dataset, last_days):
-    plt.figure(figsize=(16, 10), dpi=100)
-    shape_0 = dataset.shape[0]
-    xmacd_ = shape_0 - last_days
-
+def plot_technical_indicators(name, dataset, last_days):
+    plt.figure(figsize=(10, 2), dpi=100)
     dataset = dataset.iloc[-last_days:, :]
-    x_ = range(3, dataset.shape[0])
     x_ = list(dataset.index)
-
+    x_range = []
+    for i in range(0, int(len(x_))):
+        x_range.append(dataset['date'].iloc[i])
+        #print(x_range)
     # Plot first subplot
-    plt.subplot(2, 1, 1)
-    plt.plot(dataset['ma7'], label='MA 7', color='g', linestyle='--')
-    plt.plot(dataset['price'], label='Closing Price', color='b')
-    plt.plot(dataset['ma21'], label='MA 21', color='r', linestyle='--')
-    plt.plot(dataset['upper_band'], label='Upper Band', color='c')
-    plt.plot(dataset['lower_band'], label='Lower Band', color='c')
-    plt.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.35)
-    plt.title('Technical indicators for Goldman Sachs - last {} days.'.format(last_days))
-    plt.ylabel('USD')
+    ax = plt.subplot(1, 1, 1)
+    plt.plot(dataset['ema7'], label='EMA 7', color='g', linestyle='-.', linewidth=0.8)
+    plt.plot(dataset['ema25'], label='EMA 25', color='r', linestyle='-.', linewidth=0.8)
+    plt.plot(dataset['ema99'], label='EMA 99', color='b', linestyle='-.', linewidth=0.8)
+    plt.plot(dataset['close'], label='Closing Price', color='black', linestyle='-', linewidth=1.2, dash_capstyle= 'round')
+    plt.plot(dataset['upper_band'], label='Upper Band', color='c', linewidth=0.5)
+    plt.plot(dataset['lower_band'], label='Lower Band', color='c', linewidth=0.5)
+    plt.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.25)
+    plt.title('Technical indicators for {} - last {} days.'.format(name, last_days))
+    plt.rcParams["font.family"] = 'AppleGothic'
+    plt.ylabel('KRW')
+    plt.xticks(x_[::30], x_range[::30])
+    xlabels = ax.get_xticklabels()
+    ax.set_xticklabels(xlabels, rotation=45, fontsize=7)
     plt.legend()
-
-    # Plot second subplot
-    plt.subplot(2, 1, 2)
-    plt.title('MACD')
-    plt.plot(dataset['MACD'], label='MACD', linestyle='-.')
-    plt.hlines(15, xmacd_, shape_0, colors='g', linestyles='--')
-    plt.hlines(-15, xmacd_, shape_0, colors='g', linestyles='--')
-    plt.plot(dataset['log_momentum'], label='Momentum', color='b', linestyle='-')
-
-    plt.legend()
+    plt.grid(True)
     plt.show()
 
 # plotting by prediction model

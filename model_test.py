@@ -221,7 +221,7 @@ print(len(accepted_results))
 accuracies = [calculate_accuracy(df_korea['종가'].values, r[:-test_size]) for r in accepted_results]
 
 plt.figure(figsize = (12, 3))
-plt.rcParams["font.family"] = 'NanumBarunGothic'
+plt.rcParams["font.family"] = 'AppleGothic'
 for no, r in enumerate(accepted_results):
    plt.plot(r, label = 'forecast %d'%(no + 1), linewidth=0.5, alpha=0.5)
 avg_list = list()

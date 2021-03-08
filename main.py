@@ -6,6 +6,7 @@ import pandas as pd
 from pykrx import stock
 from system_check import Monitor
 from finta import TA
+import matplotlib.dates as mdates
 from finta.utils import resample_calendar
 from plot_chart import *
 import yfinance as yf
@@ -15,7 +16,7 @@ Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 if __name__ == '__main__':
     From_date = '20190101'
     base_year = '2021-01-01' # When youu don't wanna know this year 52 weeks high price
-    stock_name = "부광약품"
+    stock_name = "GS리테일"
     listed_year = 2021
     today_date = datetime.today().strftime("%Y%m%d")
     # Pykrx scratch Test...
@@ -23,15 +24,23 @@ if __name__ == '__main__':
     # monitor.stop()
     # pykrx_scratch(From_date, today_date) # KOSPI & KOSDAQ all stock scratch
     # pykrx_daily_update()
-    # stock_csv = pykrx_read_csv(stock_name)
+    stock_csv = pykrx_read_csv(stock_name)
     # trainer = Model(opt)
     # Showing chart test...
 
     # print(TA.RSI(stock_csv).tail())
     # print(TA.EMA(stock_csv, 20).tail())
-    # # print(TA.EMA(stock_csv, 60).tail())
+    # print(TA.EMA(stock_csv, 60).tail())
     # print(TA.EMA(stock_csv, 120).tail())
-    # #plot_technical_indicators(stock_csv, 30)
+
+    stock_csv['ema7'] = TA.EMA(stock_csv, 7)
+    stock_csv['ema12'] = TA.EMA(stock_csv, 12)
+    stock_csv['ema25'] = TA.EMA(stock_csv, 25)
+    stock_csv['ema99'] = TA.EMA(stock_csv, 99)
+    stock_csv['upper_band'] = TA.BBANDS(stock_csv)['BB_UPPER']
+    stock_csv['lower_band'] = TA.BBANDS(stock_csv)['BB_LOWER']
+    stock_csv['MACD'] = TA.MACD(stock_csv)['MACD']
+    plot_technical_indicators(stock_name, stock_csv, 300)
 
     # 52 weeks high price test...
     one_year_ago = datetime.now() - timedelta(days=365)
@@ -67,7 +76,7 @@ if __name__ == '__main__':
     '''
 
     # Trend line test...
-    tick = yf.Ticker("VLDR")
+    tick = yf.Ticker("AAPL")
     hist = tick.history(period="max", rounding=True)
     #hist = hist[:'2019-10-07']
     h = hist.Close.tolist()
