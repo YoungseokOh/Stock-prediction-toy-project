@@ -8,7 +8,8 @@ from system_check import Monitor
 from finta import TA
 from finta.utils import resample_calendar
 from plot_chart import *
-
+import yfinance as yf
+import trendln
 Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 
 if __name__ == '__main__':
@@ -17,7 +18,7 @@ if __name__ == '__main__':
     stock_name = "부광약품"
     listed_year = 2021
     today_date = datetime.today().strftime("%Y%m%d")
-    # Test...
+    # Pykrx scratch Test...
     # monitor = Monitor(10) #GPU Monitor
     # monitor.stop()
     # pykrx_scratch(From_date, today_date) # KOSPI & KOSDAQ all stock scratch
@@ -49,7 +50,8 @@ if __name__ == '__main__':
     #search_listed_stock(listed_year)
 
     # Volume & change test...
-    df = daily_data_read('20210304') #today_date
+    '''
+    df = daily_data_read('20210305') #today_date
     # Volume sorting TOP20
     df_sorting_volume = sorting_by_column(df, '거래량', False, 20)
     df_change = ticker_to_stockname(df_sorting_volume)
@@ -62,3 +64,14 @@ if __name__ == '__main__':
     df_sorting_f_rate = sorting_by_column(df, '등락률', False, 20)
     df_f_rate = ticker_to_stockname(df_sorting_f_rate)
     print(df_f_rate)
+    '''
+
+    # Trend line test...
+    tick = yf.Ticker("VLDR")
+    hist = tick.history(period="max", rounding=True)
+    #hist = hist[:'2019-10-07']
+    h = hist.Close.tolist()
+    fig = trendln.plot_support_resistance(hist[-200:].Close, accuracy=2)
+    plt.savefig('suppres.svg', format='svg')
+    plt.show()
+    plt.clf()  # clear figure
