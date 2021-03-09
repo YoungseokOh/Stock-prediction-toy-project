@@ -24,15 +24,17 @@ def plot_technical_indicators(name, dataset, last_days):
     plt.plot(dataset['lower_band'], label='Lower Band', color='c', linewidth=0.5)
     plt.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.25)
     plt.title('Technical indicators for {} - last {} days.'.format(name, last_days))
-    plt.rcParams["font.family"] = 'AppleGothic'
+    plt.rcParams["font.family"] = 'DejaVu Sans'
     plt.ylabel('KRW')
     plt.xticks(x_[::30], x_range[::30])
     xlabels = ax.get_xticklabels()
     ax.set_xticklabels(xlabels, rotation=45, fontsize=7)
     plt.legend()
     plt.grid(True)
+    fig_save = plt.gcf()
     plt.show()
-    plt.savefig('results/{}.png'.format(name))
+    plt.draw()
+    fig_save.savefig('results/{}.png'.format(name))
 
 # plotting by prediction model
 # def plot_prediction_model()
