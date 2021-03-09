@@ -37,7 +37,7 @@ dropout_rate = 0.8
 test_size = 30
 learning_rate = 0.0001
 
-date_Start = '20200101'
+date_Start = '20050101'
 stock_input = "앤씨앤"
 date_End = datetime.today().strftime("%Y%m%d")
 
@@ -171,6 +171,7 @@ def forecast():
                modelnn.hidden_layer: init_value,
            },
        )
+
        init_value = last_state
        output_predict[k + 1: k + timestamp + 1] = out_logits
 
@@ -225,7 +226,6 @@ for r in results:
 print(len(accepted_results))
 
 accuracies = [calculate_accuracy(df_korea['종가'].values, r[:-test_size]) for r in accepted_results]
-
 plt.figure(figsize = (12, 3))
 plt.rcParams["font.family"] = 'AppleGothic'
 for no, r in enumerate(accepted_results):
