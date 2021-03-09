@@ -1,15 +1,21 @@
 import matplotlib.pyplot as plt
+import mplfinance as fplt
+from krx_wr_script import pykrx_read_csv
+import pandas as pd
+from mplfinance.original_flavor import candlestick2_ohlc
 
 def plot_technical_indicators(name, dataset, last_days):
-    plt.figure(figsize=(10, 2), dpi=100)
     dataset = dataset.iloc[-last_days:, :]
+    dataset = dataset.reset_index()
+    ax = plt.subplot()
     x_ = list(dataset.index)
     x_range = []
     for i in range(0, int(len(x_))):
         x_range.append(dataset['date'].iloc[i])
         #print(x_range)
     # Plot first subplot
-    ax = plt.subplot(1, 1, 1)
+    ax = plt.subplot()
+    candlestick2_ohlc(ax, dataset['open'], dataset['high'], dataset['low'], dataset['close'], width=0.5, colorup='r', colordown='b')
     plt.plot(dataset['ema7'], label='EMA 7', color='g', linestyle='-.', linewidth=0.8)
     plt.plot(dataset['ema25'], label='EMA 25', color='r', linestyle='-.', linewidth=0.8)
     plt.plot(dataset['ema99'], label='EMA 99', color='b', linestyle='-.', linewidth=0.8)
@@ -26,6 +32,7 @@ def plot_technical_indicators(name, dataset, last_days):
     plt.legend()
     plt.grid(True)
     plt.show()
+    plt.savefig('results/{}.png'.format(name))
 
 # plotting by prediction model
 # def plot_prediction_model()

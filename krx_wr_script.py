@@ -76,7 +76,7 @@ def pykrx_daily_update():
 def pykrx_read_csv(stock_name):
     csv_file_path = search(Krx_Char_folder_path + '/' + stock_name, condition)
     if os.path.exists(csv_file_path[0]):
-        stock_csv = pd.read_csv(csv_file_path[0])
+        stock_csv = pd.read_csv(csv_file_path[0], parse_dates=True)
     else:
         print('Can''t find csv file!')
     return stock_csv

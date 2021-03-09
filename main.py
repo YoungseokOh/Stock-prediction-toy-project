@@ -28,10 +28,10 @@ if __name__ == '__main__':
     # trainer = Model(opt)
     # Showing chart test...
 
-    # print(TA.RSI(stock_csv).tail())
-    # print(TA.EMA(stock_csv, 20).tail())
-    # print(TA.EMA(stock_csv, 60).tail())
-    # print(TA.EMA(stock_csv, 120).tail())
+    print(TA.RSI(stock_csv).tail())
+    print(TA.EMA(stock_csv, 20).tail())
+    print(TA.EMA(stock_csv, 60).tail())
+    print(TA.EMA(stock_csv, 120).tail())
 
     stock_csv['ema7'] = TA.EMA(stock_csv, 7)
     stock_csv['ema12'] = TA.EMA(stock_csv, 12)
