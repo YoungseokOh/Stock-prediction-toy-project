@@ -28,5 +28,6 @@ pip install seaborn
 pip install GPUtil 
 pip install scikit-learn 
 pip install tqdm
-
+pip install trendln
+pip install yfinance
 ```
