@@ -10,19 +10,22 @@ def plot_technical_indicators(name, dataset, last_days):
     ax = plt.subplot()
     x_ = list(dataset.index)
     x_range = []
+    col_name = []
+    for col_list in dataset.columns:
+        if "ema" in col_list:
+            col_name.append(col_list)
     for i in range(0, int(len(x_))):
         x_range.append(dataset['date'].iloc[i])
         #print(x_range)
     # Plot first subplot
-    ax = plt.subplot()
     candlestick2_ohlc(ax, dataset['open'], dataset['high'], dataset['low'], dataset['close'], width=0.5, colorup='r', colordown='b')
-    plt.plot(dataset['ema7'], label='EMA 7', color='g', linestyle='-.', linewidth=0.8)
-    plt.plot(dataset['ema25'], label='EMA 25', color='r', linestyle='-.', linewidth=0.8)
-    plt.plot(dataset['ema99'], label='EMA 99', color='b', linestyle='-.', linewidth=0.8)
-    plt.plot(dataset['close'], label='Closing Price', color='black', linestyle='-', linewidth=1.2, dash_capstyle= 'round')
-    plt.plot(dataset['upper_band'], label='Upper Band', color='c', linewidth=0.5)
-    plt.plot(dataset['lower_band'], label='Lower Band', color='c', linewidth=0.5)
-    plt.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.25)
+    plt.plot(dataset['{}'.format(col_name[0])], label='{}'.format(col_name[0].upper()), color='g', linestyle='-.', linewidth=0.8)
+    plt.plot(dataset['{}'.format(col_name[1])], label='{}'.format(col_name[1].upper()), color='r', linestyle='-.', linewidth=0.8)
+    plt.plot(dataset['{}'.format(col_name[2])], label='{}'.format(col_name[2].upper()), color='b', linestyle='-.', linewidth=0.8)
+    if 'upper_band' in dataset.columns:
+        plt.plot(dataset['upper_band'], label='Upper Band', color='c', linewidth=0.5)
+        plt.plot(dataset['lower_band'], label='Lower Band', color='c', linewidth=0.5)
+        plt.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.25)
     plt.title('Technical indicators for {} - last {} days.'.format(name, last_days))
     plt.rcParams["font.family"] = 'DejaVu Sans'
     plt.ylabel('KRW')
@@ -31,10 +34,13 @@ def plot_technical_indicators(name, dataset, last_days):
     ax.set_xticklabels(xlabels, rotation=45, fontsize=7)
     plt.legend()
     plt.grid(True)
-    fig_save = plt.gcf()
     plt.show()
     plt.draw()
-    fig_save.savefig('results/{}.png'.format(name))
+    fig_save = plt.gcf()
+    return fig_save
+    # plt.show()
+    # plt.draw()
+    # fig_save.savefig('results/{}.png'.format(name))
 
 # plotting by prediction model
 # def plot_prediction_model()

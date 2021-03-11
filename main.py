@@ -1,46 +1,38 @@
-from krx_wr_script import *
 from stock_52_weeks_analysis import *
+from plot_chart import *
+from technical_indicator_analysis import *
 from top20_analysis import *
+from krx_wr_script import *
 from datetime import datetime, timedelta
 import pandas as pd
 from pykrx import stock
-from system_check import Monitor
+import matplotlib.pyplot as plt
 from finta import TA
-import matplotlib.dates as mdates
-from finta.utils import resample_calendar
-from plot_chart import *
 import yfinance as yf
 import trendln
 Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 
 if __name__ == '__main__':
     From_date = '20190101'
-    base_year = '2021-01-01' # When youu don't wanna know this year 52 weeks high price
-    stock_name = "GS리테일"
+    base_year = '2021-01-01' # When you don't wanna know this year 52 weeks high price
+    stock_name = "에이스테크"
     listed_year = 2021
     today_date = datetime.today().strftime("%Y%m%d")
     # Pykrx scratch Test...
-    # monitor = Monitor(10) #GPU Monitor
-    # monitor.stop()
     # pykrx_scratch(From_date, today_date) # KOSPI & KOSDAQ all stock scratch
     # pykrx_daily_update()
-    stock_csv = pykrx_read_csv(stock_name)
+    # stock_csv = pykrx_read_csv(stock_name)
     # trainer = Model(opt)
-    # Showing chart test...
 
-    print(TA.RSI(stock_csv).tail())
-    print(TA.EMA(stock_csv, 20).tail())
-    print(TA.EMA(stock_csv, 60).tail())
-    print(TA.EMA(stock_csv, 120).tail())
+    # Base technical indicator
+    # stock_csv = cal_technical_indicator_name(stock_name)
+    # fig = plot_technical_indicators(stock_name, stock_csv, 300)
 
-    stock_csv['ema7'] = TA.EMA(stock_csv, 7)
-    stock_csv['ema12'] = TA.EMA(stock_csv, 12)
-    stock_csv['ema25'] = TA.EMA(stock_csv, 25)
-    stock_csv['ema99'] = TA.EMA(stock_csv, 99)
-    stock_csv['upper_band'] = TA.BBANDS(stock_csv)['BB_UPPER']
-    stock_csv['lower_band'] = TA.BBANDS(stock_csv)['BB_LOWER']
-    stock_csv['MACD'] = TA.MACD(stock_csv)['MACD']
-    plot_technical_indicators(stock_name, stock_csv, 300)
+    # Personal technical indicator
+    # stock_csv_p = cal_technical_indicator_personal(stock_name, 10, 50, 120, False)
+    # fig = plot_technical_indicators(stock_name, stock_csv_p, 300)
+
+
 
     # 52 weeks high price test...
     one_year_ago = datetime.now() - timedelta(days=365)
@@ -55,7 +47,6 @@ if __name__ == '__main__':
     else:
         df_52w_csv = pd.read_csv(results_52w_csv)
     # Make an exception of daily hit the high price
-
     #search_listed_stock(listed_year)
 
     # Volume & change test...
@@ -76,11 +67,11 @@ if __name__ == '__main__':
     '''
 
     # Trend line test...
-    tick = yf.Ticker("AAPL")
-    hist = tick.history(period="max", rounding=True)
-    #hist = hist[:'2019-10-07']
-    h = hist.Close.tolist()
-    fig = trendln.plot_support_resistance(hist[-200:].Close, accuracy=2)
-    plt.savefig('suppres.svg', format='svg')
-    plt.show()
-    plt.clf()  # clear figure
+    # tick = yf.Ticker("AAPL")
+    # hist = tick.history(period="max", rounding=True)
+    # #hist = hist[:'2019-10-07']
+    # h = hist.Close.tolist()
+    # fig = trendln.plot_support_resistance(hist[-200:].Close, accuracy=2)
+    # plt.savefig('suppres.svg', format='svg')
+    # plt.show()
+    # plt.clf()  # clear figure
