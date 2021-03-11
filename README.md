@@ -4,6 +4,17 @@
   <img src="results/GS리테일.png" alt="example input output gif" width="600" />
 </p>
 
+>### To do list
+```
+1. Backtesting - 52 weeks high list
+2. statistical analysis
+3. Merging LSTM model
+4. Daily chart save in each stock folder
+5. Feature extraction
+6. Filtering 52 weeks high stocks using Technical indicator
+7. Showing chart upgrade with trend line
+```
+
 >### Setup
 ```
 + python 3.7
@@ -18,15 +29,4 @@ pip install GPUtil
 pip install scikit-learn 
 pip install tqdm
 
-```
-
->### To do list
-```
-1. Backtesting - 52 weeks high list
-2. statistical analysis
-3. Merging LSTM model
-4. Daily chart save in each stock folder
-5. Feature extraction
-6. Filtering 52 weeks high stocks using Technical indicator
-7. Showing chart upgrade with trend line
 ```
