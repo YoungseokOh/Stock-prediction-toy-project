@@ -22,12 +22,11 @@ pip install tqdm
 
 >### To do list
 ```
-1. Krx daily chart update (Clear)
-2. Reading train set (Clear)
-3. Showing chart (Clear)
-4. Feature extraction
-5. Technical Indicator save in csv (Clear)
-6. Beat or lose
-7. EPS/DIV ... save in csv
-8. Searching 52 weeks high - highest price (Clear)
+1. Backtesting - 52 weeks high list
+2. statistical analysis
+3. Merging LSTM model
+4. Daily chart save in each stock folder
+5. Feature extraction
+6. Filtering 52 weeks high stocks using Technical indicator
+7. Showing chart upgrade with trend line
 ```
