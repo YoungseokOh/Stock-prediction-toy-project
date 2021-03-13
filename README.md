@@ -18,7 +18,7 @@
 >### Setup
 ```
 + python 3.7
-pip install tensorflow == 1.14
+pip install tensorflow==1.14
 pip install finta 
 pip install matplotlib
 pip install pandas 
