@@ -1,7 +1,7 @@
 # Stock_Prediction_Toy_Project
 >### Plot chart
 <p align="center">
-  <img src="results/GS리테일.png" alt="example input output gif" width="600" />
+  <img src="results/코리아센터.png" width="800"/>
 </p>
 
 >### To do list
