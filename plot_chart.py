@@ -5,6 +5,7 @@ import pandas as pd
 from mplfinance.original_flavor import candlestick2_ohlc
 
 def plot_technical_indicators(name, dataset, last_days):
+    plt.rc('font', family='NanumGothic')
     dataset = dataset.iloc[-last_days:, :]
     dataset = dataset.reset_index()
     ax = plt.subplot()
@@ -27,7 +28,6 @@ def plot_technical_indicators(name, dataset, last_days):
         plt.plot(dataset['lower_band'], label='Lower Band', color='c', linewidth=0.5)
         plt.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.25)
     plt.title('Technical indicators for {} - last {} days.'.format(name, last_days))
-    plt.rcParams["font.family"] = 'DejaVu Sans'
     plt.ylabel('KRW')
     plt.xticks(x_[::30], x_range[::30])
     xlabels = ax.get_xticklabels()
