@@ -23,7 +23,7 @@ pip install finta
 pip install matplotlib
 pip install pandas 
 pip install pykrx 
-pip install mpl-finance
+pip install mplfinance
 pip install seaborn 
 pip install GPUtil 
 pip install scikit-learn 
