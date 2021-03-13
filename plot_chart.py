@@ -34,13 +34,8 @@ def plot_technical_indicators(name, dataset, last_days):
     ax.set_xticklabels(xlabels, rotation=45, fontsize=7)
     plt.legend()
     plt.grid(True)
-    plt.show()
-    plt.draw()
     fig_save = plt.gcf()
     return fig_save
-    # plt.show()
-    # plt.draw()
-    # fig_save.savefig('results/{}.png'.format(name))
 
 # plotting by prediction model
 # def plot_prediction_model()
