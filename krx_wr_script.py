@@ -5,6 +5,7 @@ from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
 import os, glob
 from datetime import datetime
+from tqdm import tqdm
 import numpy as np
 Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 condition = '.csv'
@@ -34,7 +35,7 @@ def pykrx_save_csv(ticker, date_Start, date_End):
         os.mkdir(Krx_Char_folder_path + '/' + stock_name)
     df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0',
               index=False, header=True)
-    print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
+    # print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
 
 def pykrx_scratch(date_Start, date_End):
     print("Reading Daily Chart ... {} - {}".format(date_Start, date_End))
@@ -45,10 +46,12 @@ def pykrx_scratch(date_Start, date_End):
     KOSPI_ticker_list = stock.get_market_ticker_list(market="KOSPI")
     KOSDAQ_ticker_list = stock.get_market_ticker_list(market="KOSDAQ")
     # KOSPI save as csv
-    for ticker_KOSPI in KOSPI_ticker_list:
+    print('Reading KOSPI...')
+    for ticker_KOSPI in tqdm(KOSPI_ticker_list):
         pykrx_save_csv(ticker_KOSPI, date_Start, date_End)
     # KOSDAQ save as csv
-    for ticker_KOSDAQ in KOSDAQ_ticker_list:
+    print('Reading KOSDAQ...')
+    for ticker_KOSDAQ in tqdm(KOSDAQ_ticker_list):
         pykrx_save_csv(ticker_KOSDAQ, date_Start, date_End)
     print('Scratching daily chart is done!')
 

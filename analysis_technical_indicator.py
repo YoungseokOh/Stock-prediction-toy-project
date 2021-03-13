@@ -8,6 +8,7 @@ def cal_technical_indicator_name(stock_name):
     stock_csv['ema99'] = TA.EMA(stock_csv, 99)
     stock_csv['upper_band'] = TA.BBANDS(stock_csv)['BB_UPPER']
     stock_csv['lower_band'] = TA.BBANDS(stock_csv)['BB_LOWER']
+    stock_csv['rsi'] = TA.RSI(stock_csv, 14)
     return stock_csv
 
 def cal_technical_indicator_personal(stock_name, st, mt, lt, BB):

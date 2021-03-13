@@ -8,27 +8,7 @@ sns.set()
 import pkg_resources
 import types
 from krx_wr_script import *
-
-def get_imports():
-    for name, val in globals().items():
-        if isinstance(val, types.ModuleType):
-            name = val.__name__.split('.')[0]
-        elif isinstance(val, type):
-            name = val.__module__.split('.')[0]
-        poorly_named_packages = {'PIL': 'Pillow', 'sklearn': 'scikit-learn'}
-        if name in poorly_named_packages.keys():
-            name = poorly_named_packages[name]
-        yield name
-
-imports = list(set(get_imports()))
-requirements = []
-for m in pkg_resources.working_set:
-    if m.project_name in imports and m.project_name != 'pip':
-        requirements.append((m.project_name, m.version))
-
-for r in requirements:
-    print('{}=={}'.format(*r))
-
+from tqdm import tqdm
 
 def get_state(data, t, n):
     d = t - n + 1
@@ -38,17 +18,7 @@ def get_state(data, t, n):
         res.append(block[i + 1] - block[i])
     return np.array([res])
 
-stock_name = "코리아센터"
-df = pykrx_read_csv(stock_name)
-df.head()
-
-close = df.Close.values.tolist()
-window_size = 30
-skip = 1
-l = len(close) - 1
-
 class Deep_Evolution_Strategy:
-
     inputs = None
 
     def __init__(
@@ -71,8 +41,9 @@ class Deep_Evolution_Strategy:
         return self.weights
 
     def train(self, epoch = 100, print_every = 1):
+
         lasttime = time.time()
-        for i in range(epoch):
+        for i in tqdm(range(epoch)):
             population = []
             rewards = np.zeros(self.population_size)
             for k in range(self.population_size):
@@ -94,13 +65,12 @@ class Deep_Evolution_Strategy:
                     / (self.population_size * self.sigma)
                     * np.dot(A.T, rewards).T
                 )
-            if (i + 1) % print_every == 0:
-                print(
-                    'iter %d. reward: %f'
-                    % (i + 1, self.reward_function(self.weights))
-                )
+            # if (i + 1) % print_every == 0:
+            #     print(
+            #         'iter %d. reward: %f'
+            #         % (i + 1, self.reward_function(self.weights))
+            #     )
         print('time taken to train:', time.time() - lasttime, 'seconds')
-
 
 class Model:
     def __init__(self, input_size, layer_size, output_size):
@@ -129,17 +99,22 @@ class Agent:
     SIGMA = 0.1
     LEARNING_RATE = 0.03
 
-    def __init__(self, model, money, max_buy, max_sell):
+    def __init__(self, model, money, max_buy, max_sell, window_size, close, skip):
         self.model = model
         self.initial_money = money
         self.max_buy = max_buy
         self.max_sell = max_sell
+        self.close = close
+        self.window_size = window_size
+        self.skip = skip
+        self.l = len(self.close) - 1
         self.es = Deep_Evolution_Strategy(
             self.model.get_weights(),
             self.get_reward,
             self.POPULATION_SIZE,
             self.SIGMA,
             self.LEARNING_RATE,
+
         )
 
     def act(self, sequence):
@@ -150,12 +125,13 @@ class Agent:
         initial_money = self.initial_money
         starting_money = initial_money
         self.model.weights = weights
-        state = get_state(close, 0, window_size + 1)
+        close = self.close
+        state = get_state(close, 0, self.window_size + 1)
         inventory = []
         quantity = 0
-        for t in range(0, l, skip):
+        for t in range(0, self.l, self.skip):
             action, buy = self.act(state)
-            next_state = get_state(close, t + 1, window_size + 1)
+            next_state = get_state(close, t + 1, self.window_size + 1)
             if action == 1 and initial_money >= close[t]:
                 if buy < 0:
                     buy = 1
@@ -175,7 +151,6 @@ class Agent:
                 quantity -= sell_units
                 total_sell = sell_units * close[t]
                 initial_money += total_sell
-
             state = next_state
         return ((initial_money - starting_money) / starting_money) * 100
 
@@ -184,15 +159,16 @@ class Agent:
 
     def buy(self):
         initial_money = self.initial_money
-        state = get_state(close, 0, window_size + 1)
+        close = self.close
+        state = get_state(close, 0, self.window_size + 1)
         starting_money = initial_money
         states_sell = []
         states_buy = []
         inventory = []
         quantity = 0
-        for t in range(0, l, skip):
+        for t in tqdm(range(0, self.l, self.skip)):
             action, buy = self.act(state)
-            next_state = get_state(close, t + 1, window_size + 1)
+            next_state = get_state(close, t + 1, self.window_size + 1)
             if action == 1 and initial_money >= close[t]:
                 if buy < 0:
                     buy = 1
@@ -205,10 +181,10 @@ class Agent:
                 inventory.append(total_buy)
                 quantity += buy_units
                 states_buy.append(t)
-                print(
-                    'day %d: buy %d units at price %f, total balance %f'
-                    % (t, buy_units, total_buy, initial_money)
-                )
+                # print(
+                #     'day %d: buy %d units at price %f, total balance %f'
+                #     % (t, buy_units, total_buy, initial_money)
+                # )
             elif action == 2 and len(inventory) > 0:
                 bought_price = inventory.pop(0)
                 if quantity > self.max_sell:
@@ -225,15 +201,15 @@ class Agent:
                     invest = ((total_sell - bought_price) / bought_price) * 100
                 except:
                     invest = 0
-                print(
-                    'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
-                    % (t, sell_units, total_sell, invest, initial_money)
-                )
+                # print(
+                #     'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
+                #     % (t, sell_units, total_sell, invest, initial_money)
+                # )
             state = next_state
 
         invest = ((initial_money - starting_money) / starting_money) * 100
         print(
-            '\ntotal gained %f, total investment %f %%'
+            '\ntotal gained %0.2f, total investment %0.2f %%'
             % (initial_money - starting_money, invest)
         )
         plt.figure(figsize = (20, 10))
@@ -246,7 +222,3 @@ class Agent:
         )
         plt.legend()
         plt.show()
-
-model = Model(window_size, 500, 3)
-agent = Agent(model, 10000, 5, 5)
-agent.fit(500, 10)
