@@ -6,7 +6,7 @@
 
 >### To do list
 ```
-1. Backtesting - 52 weeks high list
+1. Backtesting - 52 weeks high list (done)
 2. statistical analysis
 3. Merging LSTM model
 4. Daily chart save in each stock folder
