@@ -70,7 +70,7 @@ class Deep_Evolution_Strategy:
             #         'iter %d. reward: %f'
             #         % (i + 1, self.reward_function(self.weights))
             #     )
-        print('time taken to train:', time.time() - lasttime, 'seconds')
+        # print('time taken to train:', time.time() - lasttime, 'seconds')
 
 class Model:
     def __init__(self, input_size, layer_size, output_size):
@@ -157,7 +157,7 @@ class Agent:
     def fit(self, iterations, checkpoint):
         self.es.train(iterations, print_every = checkpoint)
 
-    def buy(self):
+    def buy(self, stock_name):
         initial_money = self.initial_money
         close = self.close
         state = get_state(close, 0, self.window_size + 1)
@@ -166,7 +166,8 @@ class Agent:
         states_buy = []
         inventory = []
         quantity = 0
-        for t in tqdm(range(0, self.l, self.skip)):
+        f = open('results/base_year/base_year_strategy_results/{}_buy_sell_history.txt'.format(stock_name), 'a+')
+        for t in range(0, self.l, self.skip):
             action, buy = self.act(state)
             next_state = get_state(close, t + 1, self.window_size + 1)
             if action == 1 and initial_money >= close[t]:
@@ -181,10 +182,10 @@ class Agent:
                 inventory.append(total_buy)
                 quantity += buy_units
                 states_buy.append(t)
-                # print(
-                #     'day %d: buy %d units at price %f, total balance %f'
-                #     % (t, buy_units, total_buy, initial_money)
-                # )
+                print(
+                    'day %d: buy %d units at price %f, total balance %f quantity %d'
+                    % (t, buy_units, total_buy, initial_money, quantity),  file=f
+                )
             elif action == 2 and len(inventory) > 0:
                 bought_price = inventory.pop(0)
                 if quantity > self.max_sell:
@@ -199,20 +200,22 @@ class Agent:
                 states_sell.append(t)
                 try:
                     invest = ((total_sell - bought_price) / bought_price) * 100
+                    # invest = ((close[t] - bought_price) / 100)
                 except:
                     invest = 0
-                # print(
-                #     'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
-                #     % (t, sell_units, total_sell, invest, initial_money)
-                # )
+                print(
+                    'day %d, sell %d units at price %f, investment %f %%, total balance %f, quantity %d'
+                    % (t, sell_units, total_sell, invest, initial_money, quantity), file=f
+                )
             state = next_state
 
         invest = ((initial_money - starting_money) / starting_money) * 100
+        time.sleep(0.1)
         print(
             '\ntotal gained %0.2f, total investment %0.2f %%'
-            % (initial_money - starting_money, invest)
+            % (initial_money - starting_money, invest) , file=f
         )
-        plt.figure(figsize = (20, 10))
+        plt.figure(figsize = (10, 5))
         plt.plot(close, label = 'true close', c = 'g')
         plt.plot(
             close, 'X', label = 'predict buy', markevery = states_buy, c = 'b'
@@ -221,4 +224,6 @@ class Agent:
             close, 'o', label = 'predict sell', markevery = states_sell, c = 'r'
         )
         plt.legend()
-        plt.show()
+        fig_save = plt.gcf()
+        f.close()
+        return fig_save

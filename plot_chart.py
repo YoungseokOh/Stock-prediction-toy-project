@@ -8,7 +8,7 @@ def plot_technical_indicators(name, dataset, last_days):
     plt.rc('font', family='NanumGothic')
     dataset = dataset.iloc[-last_days:, :]
     dataset = dataset.reset_index()
-    ax = plt.subplot()
+    ax = plt.subplot(1, 1, 1)
     x_ = list(dataset.index)
     x_range = []
     col_name = []
