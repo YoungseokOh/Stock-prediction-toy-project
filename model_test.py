@@ -29,8 +29,8 @@ tf.compat.v1.random.set_random_seed(1234)
 warnings.filterwarnings("ignore")
 
 simulation_size = 5
-num_layers = 2
-size_layer = 256
+num_layers = 2 #층 쌓는 hidden layer 수  ex)2층
+size_layer = 256 # LSTM 안을 구성하는 노드수
 timestamp = 10
 epoch = 500
 dropout_rate = 0.8
@@ -77,16 +77,22 @@ class Model:
    ):
        def lstm_cell(size_layer):
            return tf.nn.rnn_cell.LSTMCell(size_layer, state_is_tuple=False)
+        #GRU 추가 but 돌리면 터짐 첫번째 인터레이션 후 input output이 안맞는듯 추가 검증 필요
+       def GRU_cell(size_layer):
+           return tf.nn.rnn_cell.GRUCell(size_layer)
 
-       rnn_cells = tf.nn.rnn_cell.MultiRNNCell(
-           [lstm_cell(size_layer) for _ in range(num_layers)],
+       rnn_cells = tf.nn.rnn_cell.MultiRNNCell(# RNN 층 쌓는 부분
+          [lstm_cell(size_layer) for _ in range(num_layers)],
+          #[GRU_cell(size_layer) for _ in range(num_layers)],
            state_is_tuple=False,
        )
        self.X = tf.placeholder(tf.float32, (None, None, size))
        self.Y = tf.placeholder(tf.float32, (None, output_size))
+
        drop = tf.contrib.rnn.DropoutWrapper(
            rnn_cells, output_keep_prob=forget_bias
        )
+
        self.hidden_layer = tf.placeholder(
            tf.float32, (None, num_layers * 2 * size_layer)
        )
