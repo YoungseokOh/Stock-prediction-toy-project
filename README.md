@@ -30,4 +30,5 @@ pip install scikit-learn
 pip install tqdm
 pip install trendln
 pip install yfinance
+
 ```
