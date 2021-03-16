@@ -9,6 +9,7 @@ import pkg_resources
 import types
 from krx_wr_script import *
 from tqdm import tqdm
+from datetime import datetime
 
 def get_state(data, t, n):
     d = t - n + 1
@@ -166,7 +167,10 @@ class Agent:
         states_buy = []
         inventory = []
         quantity = 0
-        f = open('results/base_year/base_year_strategy_results/{}_buy_sell_history.txt'.format(stock_name), 'a+')
+        today_date = datetime.today().strftime("%Y%m%d")
+        if not os.path.exists('results/base_year/base_year_strategy_results/{}'.format(today_date)):
+            os.mkdir('results/base_year/base_year_strategy_results/{}'.format(today_date))
+        f = open('results/base_year/base_year_strategy_results/{}/{}_buy_sell_history.txt'.format(today_date, stock_name), 'a+')
         for t in range(0, self.l, self.skip):
             action, buy = self.act(state)
             next_state = get_state(close, t + 1, self.window_size + 1)

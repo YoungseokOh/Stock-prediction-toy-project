@@ -7,7 +7,7 @@ import os, glob
 from datetime import datetime
 from tqdm import tqdm
 import numpy as np
-Krx_Char_folder_path = 'D:/Krx_Chart_folder'
+Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 condition = '.csv'
 
 def search(data_path, extension):
