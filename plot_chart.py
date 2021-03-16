@@ -2,13 +2,28 @@ import matplotlib.pyplot as plt
 import mplfinance as fplt
 from krx_wr_script import pykrx_read_csv
 import pandas as pd
+import matplotlib.ticker as mticker
+import matplotlib.dates as mdates
 from mplfinance.original_flavor import candlestick2_ohlc
 
 def plot_technical_indicators(name, dataset, last_days):
     plt.rc('font', family='NanumGothic')
     dataset = dataset.iloc[-last_days:, :]
-    dataset = dataset.reset_index()
-    ax = plt.subplot(1, 1, 1)
+
+    # dataset = dataset.reset_index()
+    dataset = dataset.set_index(dataset['date'])
+    #ax = plt.subplot(1, 1, 1)
+    ax = plt.subplot2grid((6,4), (1,0), rowspan=4, colspan=4)
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(10))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    #ax.spines['bottom'].set_color("#5998ff")
+    #ax.spines['top'].set_color("#5998ff")
+    #ax.spines['left'].set_color("#5998ff")
+    #ax.spines['right'].set_color("#5998ff")
+    ax.yaxis.label.set_color("k")
+    ax.tick_params(axis='y', colors='k')
+    plt.gca().yaxis.set_major_locator(mticker.MaxNLocator(prune='upper'))
+    ax.tick_params(axis='x', colors='k')
     x_ = list(dataset.index)
     x_range = []
     col_name = []
@@ -20,21 +35,47 @@ def plot_technical_indicators(name, dataset, last_days):
         #print(x_range)
     # Plot first subplot
     candlestick2_ohlc(ax, dataset['open'], dataset['high'], dataset['low'], dataset['close'], width=0.5, colorup='r', colordown='b')
-    plt.plot(dataset['{}'.format(col_name[0])], label='{}'.format(col_name[0].upper()), color='g', linestyle='-.', linewidth=0.8)
-    plt.plot(dataset['{}'.format(col_name[1])], label='{}'.format(col_name[1].upper()), color='r', linestyle='-.', linewidth=0.8)
-    plt.plot(dataset['{}'.format(col_name[2])], label='{}'.format(col_name[2].upper()), color='b', linestyle='-.', linewidth=0.8)
+    ax.plot(dataset['{}'.format(col_name[0])], label='{}'.format(col_name[0].upper()), color='g', linestyle='-.', linewidth=0.8)
+    ax.plot(dataset['{}'.format(col_name[1])], label='{}'.format(col_name[1].upper()), color='r', linestyle='-.', linewidth=0.8)
+    ax.plot(dataset['{}'.format(col_name[2])], label='{}'.format(col_name[2].upper()), color='b', linestyle='-.', linewidth=0.8)
     if 'upper_band' in dataset.columns:
-        plt.plot(dataset['upper_band'], label='Upper Band', color='c', linewidth=0.5)
-        plt.plot(dataset['lower_band'], label='Lower Band', color='c', linewidth=0.5)
-        plt.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.25)
+        ax.plot(dataset['upper_band'], label='Upper Band', color='c', linewidth=0.5)
+        ax.plot(dataset['lower_band'], label='Lower Band', color='c', linewidth=0.5)
+        ax.fill_between(x_, dataset['lower_band'], dataset['upper_band'], alpha=0.25)
     plt.title('Technical indicators for {} - last {} days.'.format(name, last_days))
     plt.ylabel('KRW')
-    plt.xticks(x_[::30], x_range[::30])
-    xlabels = ax.get_xticklabels()
-    ax.set_xticklabels(xlabels, rotation=45, fontsize=7)
+    #axv.ylabel('Volume')
+    # plt.xticks(x_[::30], x_range[::30])
+    # xlabels = ax.get_xticklabels()
+    # ax.set_xticklabels(xlabels, rotation=45, fontsize=7)
+
+    axv = plt.subplot2grid((6, 4), (5, 0), sharex=ax, rowspan=1, colspan=4)
+    #axv.bar()
+    plt.gca().yaxis.set_major_locator(mticker.MaxNLocator(prune='upper'))
+    #axv.spines['bottom'].set_color("#5998ff")
+    #axv.spines['top'].set_color("#5998ff")
+    #axv.spines['left'].set_color("#5998ff")
+    #axv.spines['right'].set_color("#5998ff")
+    axv.tick_params(axis='x', colors='k')
+    axv.tick_params(axis='y', colors='k')
+    plt.ylabel('Volume')
+    axv.yaxis.set_major_locator(mticker.MaxNLocator(nbins=5, prune='upper'))
+    #axv.set_yticks([0, 100])
+    '''
+    for label in axv.xaxis.get_ticklabels():
+        label.set_rotation(45)
+    plt.setp(ax.get_xticklabels(), visible=False)
+    '''
+    #plt.setp(axv.get_xticklabels(), visible=False)
+    #axv = ax.twinx()
+    print(dataset['volume'])
+    #
+    plt.subplots_adjust(left=.09, bottom=.14, right=.94, top=.95, wspace=.20, hspace=0)
     plt.legend()
     plt.grid(True)
+    plt.show()
     fig_save = plt.gcf()
+
     return fig_save
 
 # plotting by prediction model
