@@ -1,6 +1,6 @@
 import telegram
 
-bot = telegram.Bot(token='1677916368:AAGEEAK3TomepKeXX6Xw37yh2TaGP6P5lgA')
+bot = telegram.Bot(token='1677916368:AAHD4UOqLcz8pwVhmjQxgmMWciMF6HSHAE0')
 
 
 def get_chat_id(chat_title_name):
