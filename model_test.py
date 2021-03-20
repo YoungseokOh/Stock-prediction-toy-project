@@ -76,17 +76,18 @@ class Model:
            forget_bias=0.1,
    ):
        def lstm_cell(size_layer):
-           return tf.nn.rnn_cell.LSTMCell(size_layer, state_is_tuple=False)
+           return tf.nn.rnn_cell.LSTMCell(size_layer,use_peepholes=True, state_is_tuple=False)
         #GRU 추가 but 돌리면 터짐 첫번째 인터레이션 후 input output이 안맞는듯 추가 검증 필요
-       def GRU_cell(size_layer):
-           return tf.nn.rnn_cell.GRUCell(size_layer)
+       #def GRU_cell(size_layer):
+       #    return tf.nn.rnn_cell.GRUCell(size_layer)
 
        rnn_cells = tf.nn.rnn_cell.MultiRNNCell(# RNN 층 쌓는 부분
           [lstm_cell(size_layer) for _ in range(num_layers)],
-          #[GRU_cell(size_layer) for _ in range(num_layers)],
-           state_is_tuple=False,
+       #   [GRU_cell(size_layer) for _ in range(num_layers)],
+            state_is_tuple=False,
        )
-       self.X = tf.placeholder(tf.float32, (None, None, size))
+       #rnn_cells  = GRU_cell(size_layer)
+       self.X = tf.placeholder(tf.float32, (None, None,size))
        self.Y = tf.placeholder(tf.float32, (None, output_size))
 
        drop = tf.contrib.rnn.DropoutWrapper(
