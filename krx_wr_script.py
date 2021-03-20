@@ -4,10 +4,10 @@ import pandas as pd
 from pandas import DataFrame
 from sklearn.preprocessing import MinMaxScaler
 import os, glob
+import time
 from datetime import datetime
 from tqdm import tqdm
 import numpy as np
-Krx_Char_folder_path = 'E:/Krx_Chart_folder'
 condition = '.csv'
 
 def search(data_path, extension):
@@ -25,10 +25,20 @@ def search(data_path, extension):
             file_list.append(data_path+'/'+filename)
     return file_list
 
-def pykrx_save_csv(ticker, date_Start, date_End):
+def pykrx_save_csv(df, stock_name, path):
+    save_path = path + '/' + stock_name
+    df.to_csv(save_path + '/' + stock_name + '.csv', sep=',', na_rep='0', index=False, header=True)
+
+def pykrx_scratch_save_csv(ticker, date_Start, date_End, Krx_Char_folder_path):
     stock_name = stock.get_market_ticker_name(ticker)
     stock_folder_name = stock_name + '_' + ticker
     df = stock.get_market_ohlcv_by_date(date_Start, date_End, ticker)
+    if df.empty:
+        print('This stock is empty : {}'.format(stock_name))
+        return 0
+    if df['시가'].iloc[0] == 0:
+        print('This stock\'s \'open\' doesn\'t exists : {}'.format(stock_name))
+        return 0
     df = df.reset_index()
     df = df.rename(columns={'날짜': 'date', '시가': 'open', '고가': 'high', '저가': 'low', '종가': 'close', '거래량': 'volume'})
     if not os.path.exists(Krx_Char_folder_path + '/' + stock_name):
@@ -37,7 +47,7 @@ def pykrx_save_csv(ticker, date_Start, date_End):
               index=False, header=True)
     # print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
 
-def pykrx_scratch(date_Start, date_End):
+def pykrx_scratch(date_Start, date_End, Krx_Char_folder_path):
     print("Reading Daily Chart ... {} - {}".format(date_Start, date_End))
     # create main folder
     if not os.path.exists(Krx_Char_folder_path):
@@ -47,17 +57,19 @@ def pykrx_scratch(date_Start, date_End):
     KOSDAQ_ticker_list = stock.get_market_ticker_list(market="KOSDAQ")
     # KOSPI save as csv
     print('Reading KOSPI...')
+    time.sleep(0.5)
     for ticker_KOSPI in tqdm(KOSPI_ticker_list):
-        pykrx_save_csv(ticker_KOSPI, date_Start, date_End)
+        pykrx_scratch_save_csv(ticker_KOSPI, date_Start, date_End, Krx_Char_folder_path)
+
     # KOSDAQ save as csv
     print('Reading KOSDAQ...')
+    time.sleep(0.5)
     for ticker_KOSDAQ in tqdm(KOSDAQ_ticker_list):
-        pykrx_save_csv(ticker_KOSDAQ, date_Start, date_End)
+        pykrx_scratch_save_csv(ticker_KOSDAQ, date_Start, date_End, Krx_Char_folder_path)
     print('Scratching daily chart is done!')
 
-def pykrx_daily_update():
-    #today_date = datetime.today().strftime("%Y%m%d")
-    today_date = '20210223'
+def pykrx_daily_update(Krx_Char_folder_path):
+    today_date = datetime.today().strftime("%Y%m%d")
     df = stock.get_market_ohlcv_by_ticker(today_date, market="ALL")
     df = df.reset_index()
     del df['거래대금']
@@ -76,7 +88,7 @@ def pykrx_daily_update():
         print('{} Daily chart update is done!'.format(stock_name))
         count += 1
 
-def pykrx_read_csv(stock_name):
+def pykrx_read_csv(stock_name, Krx_Char_folder_path):
     csv_file_path = search(Krx_Char_folder_path + '/' + stock_name, condition)
     if os.path.exists(csv_file_path[0]):
         stock_csv = pd.read_csv(csv_file_path[0], parse_dates=True)
@@ -96,5 +108,4 @@ def pykrx_read_train_set(stock_csv):
      df_train = df_log
      df.shape, df_train.shape
      print('read done!')
-
      return df_train

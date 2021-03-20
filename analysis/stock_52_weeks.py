@@ -2,6 +2,7 @@
 from tqdm import tqdm
 from datetime import datetime, timedelta
 from krx_wr_script import *
+from util import *
 import os
 
 def search_listed_stock(year):
@@ -10,7 +11,7 @@ def search_listed_stock(year):
     one_year_ago = str(year - 1) + base_date[0]
 
 def stock_52w_gap_percentage(stock_name, one_year_ago):
-    stock_csv = pykrx_read_csv(stock_name)
+    stock_csv = pykrx_read_csv(stock_name, util.Krx_Char_folder_path)
     one_year_ago = datetime.now() - timedelta(days=365)
     stock_52w = stock_csv[stock_csv['date'] >= (one_year_ago).strftime("%Y-%m-%d")]
     high_price_52w = max(stock_52w['high'].to_numpy())
@@ -24,7 +25,7 @@ def stock_52w_update(Krx_Char_folder_path):
     stock_list_52w = []
     count = 0
     for stock_name in tqdm(krx_list):
-        stock_csv = pykrx_read_csv(stock_name)
+        stock_csv = pykrx_read_csv(stock_name, Krx_Char_folder_path)
         close_price_day = stock_csv.iloc[len(stock_csv) - 1]['close']
         stock_52w_csv = stock_csv[stock_csv['date'] >= (one_year_ago).strftime("%Y-%m-%d")]
         high_price_52w = max(stock_52w_csv['high'].to_numpy())
