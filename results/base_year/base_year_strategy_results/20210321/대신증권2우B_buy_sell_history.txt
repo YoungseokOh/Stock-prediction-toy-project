@@ -1,0 +1,342 @@
+day 0: buy 1 units at price 8060.000000, total balance 991940.000000 quantity 1
+day 2: buy 1 units at price 8000.000000, total balance 983940.000000 quantity 2
+day 3: buy 5 units at price 40300.000000, total balance 943640.000000 quantity 7
+day 4, sell 5 units at price 40200.000000, investment 398.759305 %, total balance 983840.000000, quantity 2
+day 5: buy 5 units at price 40200.000000, total balance 943640.000000 quantity 7
+day 8: buy 5 units at price 39950.000000, total balance 903690.000000 quantity 12
+day 9: buy 5 units at price 40250.000000, total balance 863440.000000 quantity 17
+day 10, sell 5 units at price 40500.000000, investment 406.250000 %, total balance 903940.000000, quantity 12
+day 13, sell 5 units at price 40800.000000, investment 1.240695 %, total balance 944740.000000, quantity 7
+day 14, sell 5 units at price 40850.000000, investment 1.616915 %, total balance 985590.000000, quantity 2
+day 15: buy 5 units at price 40850.000000, total balance 944740.000000 quantity 7
+day 16: buy 1 units at price 8250.000000, total balance 936490.000000 quantity 8
+day 17, sell 5 units at price 41250.000000, investment 3.254068 %, total balance 977740.000000, quantity 3
+day 18, sell 3 units at price 24690.000000, investment -38.658385 %, total balance 1002430.000000, quantity 0
+day 26: buy 1 units at price 8240.000000, total balance 994190.000000 quantity 1
+day 27: buy 5 units at price 41050.000000, total balance 953140.000000 quantity 6
+day 29: buy 1 units at price 8210.000000, total balance 944930.000000 quantity 7
+day 30, sell 5 units at price 41100.000000, investment 398.786408 %, total balance 986030.000000, quantity 2
+day 31, sell 2 units at price 16380.000000, investment -60.097442 %, total balance 1002410.000000, quantity 0
+day 33: buy 5 units at price 41000.000000, total balance 961410.000000 quantity 5
+day 34, sell 5 units at price 41150.000000, investment 401.218027 %, total balance 1002560.000000, quantity 0
+day 39: buy 5 units at price 41100.000000, total balance 961460.000000 quantity 5
+day 40: buy 5 units at price 41150.000000, total balance 920310.000000 quantity 10
+day 41, sell 5 units at price 41150.000000, investment 0.121655 %, total balance 961460.000000, quantity 5
+day 42: buy 5 units at price 41200.000000, total balance 920260.000000 quantity 10
+day 43, sell 5 units at price 41150.000000, investment 0.000000 %, total balance 961410.000000, quantity 5
+day 44, sell 5 units at price 40900.000000, investment -0.728155 %, total balance 1002310.000000, quantity 0
+day 45: buy 1 units at price 8180.000000, total balance 994130.000000 quantity 1
+day 46: buy 5 units at price 40900.000000, total balance 953230.000000 quantity 6
+day 47, sell 5 units at price 40950.000000, investment 400.611247 %, total balance 994180.000000, quantity 1
+day 48, sell 1 units at price 8200.000000, investment -79.951100 %, total balance 1002380.000000, quantity 0
+day 49: buy 1 units at price 8190.000000, total balance 994190.000000 quantity 1
+day 51: buy 5 units at price 40950.000000, total balance 953240.000000 quantity 6
+day 53: buy 5 units at price 41000.000000, total balance 912240.000000 quantity 11
+day 56: buy 5 units at price 40750.000000, total balance 871490.000000 quantity 16
+day 57: buy 5 units at price 40750.000000, total balance 830740.000000 quantity 21
+day 58: buy 5 units at price 40800.000000, total balance 789940.000000 quantity 26
+day 60, sell 5 units at price 41200.000000, investment 403.052503 %, total balance 831140.000000, quantity 21
+day 62: buy 1 units at price 8280.000000, total balance 822860.000000 quantity 22
+day 65, sell 5 units at price 41500.000000, investment 1.343101 %, total balance 864360.000000, quantity 17
+day 66, sell 5 units at price 41550.000000, investment 1.341463 %, total balance 905910.000000, quantity 12
+day 68: buy 1 units at price 8300.000000, total balance 897610.000000 quantity 13
+day 69: buy 1 units at price 8370.000000, total balance 889240.000000 quantity 14
+day 70, sell 5 units at price 41900.000000, investment 2.822086 %, total balance 931140.000000, quantity 9
+day 73, sell 5 units at price 42150.000000, investment 3.435583 %, total balance 973290.000000, quantity 4
+day 74, sell 4 units at price 33840.000000, investment -17.058824 %, total balance 1007130.000000, quantity 0
+day 75: buy 5 units at price 42550.000000, total balance 964580.000000 quantity 5
+day 76: buy 5 units at price 42550.000000, total balance 922030.000000 quantity 10
+day 77, sell 5 units at price 42450.000000, investment 412.681159 %, total balance 964480.000000, quantity 5
+day 78, sell 5 units at price 42400.000000, investment 410.843373 %, total balance 1006880.000000, quantity 0
+day 86: buy 1 units at price 8600.000000, total balance 998280.000000 quantity 1
+day 87: buy 5 units at price 42150.000000, total balance 956130.000000 quantity 6
+day 88: buy 1 units at price 8490.000000, total balance 947640.000000 quantity 7
+day 89, sell 5 units at price 42350.000000, investment 392.441860 %, total balance 989990.000000, quantity 2
+day 90, sell 2 units at price 16920.000000, investment -59.857651 %, total balance 1006910.000000, quantity 0
+day 94: buy 5 units at price 42450.000000, total balance 964460.000000 quantity 5
+day 95: buy 1 units at price 8450.000000, total balance 956010.000000 quantity 6
+day 96, sell 5 units at price 42300.000000, investment -0.353357 %, total balance 998310.000000, quantity 1
+day 97: buy 1 units at price 8470.000000, total balance 989840.000000 quantity 2
+day 98: buy 1 units at price 8500.000000, total balance 981340.000000 quantity 3
+day 99: buy 5 units at price 42450.000000, total balance 938890.000000 quantity 8
+day 100, sell 5 units at price 42600.000000, investment 404.142012 %, total balance 981490.000000, quantity 3
+day 101: buy 1 units at price 8520.000000, total balance 972970.000000 quantity 4
+day 103, sell 4 units at price 34000.000000, investment 301.416765 %, total balance 1006970.000000, quantity 0
+day 105: buy 5 units at price 43050.000000, total balance 963920.000000 quantity 5
+day 106, sell 5 units at price 43150.000000, investment 407.647059 %, total balance 1007070.000000, quantity 0
+day 107: buy 1 units at price 8670.000000, total balance 998400.000000 quantity 1
+day 108: buy 1 units at price 8640.000000, total balance 989760.000000 quantity 2
+day 109: buy 1 units at price 8650.000000, total balance 981110.000000 quantity 3
+day 110: buy 5 units at price 43250.000000, total balance 937860.000000 quantity 8
+day 111: buy 1 units at price 8670.000000, total balance 929190.000000 quantity 9
+day 112: buy 1 units at price 8670.000000, total balance 920520.000000 quantity 10
+day 116, sell 5 units at price 44000.000000, investment 3.651355 %, total balance 964520.000000, quantity 5
+day 122: buy 1 units at price 8800.000000, total balance 955720.000000 quantity 6
+day 125, sell 5 units at price 43250.000000, investment 407.629108 %, total balance 998970.000000, quantity 1
+day 126, sell 1 units at price 8490.000000, investment -80.278746 %, total balance 1007460.000000, quantity 0
+day 127: buy 5 units at price 42350.000000, total balance 965110.000000 quantity 5
+day 128: buy 1 units at price 8500.000000, total balance 956610.000000 quantity 6
+day 129: buy 5 units at price 42750.000000, total balance 913860.000000 quantity 11
+day 130: buy 5 units at price 42700.000000, total balance 871160.000000 quantity 16
+day 133, sell 5 units at price 42450.000000, investment 389.619377 %, total balance 913610.000000, quantity 11
+day 134: buy 1 units at price 8410.000000, total balance 905200.000000 quantity 12
+day 135: buy 5 units at price 42600.000000, total balance 862600.000000 quantity 17
+day 136, sell 5 units at price 42700.000000, investment 394.212963 %, total balance 905300.000000, quantity 12
+day 137, sell 5 units at price 42800.000000, investment 394.797688 %, total balance 948100.000000, quantity 7
+day 138: buy 1 units at price 8430.000000, total balance 939670.000000 quantity 8
+day 139, sell 5 units at price 42150.000000, investment -2.543353 %, total balance 981820.000000, quantity 3
+day 140: buy 5 units at price 42200.000000, total balance 939620.000000 quantity 8
+day 141: buy 5 units at price 41600.000000, total balance 898020.000000 quantity 13
+day 142: buy 5 units at price 41650.000000, total balance 856370.000000 quantity 18
+day 144: buy 5 units at price 41600.000000, total balance 814770.000000 quantity 23
+day 145: buy 5 units at price 41000.000000, total balance 773770.000000 quantity 28
+day 146: buy 5 units at price 40100.000000, total balance 733670.000000 quantity 33
+day 147: buy 5 units at price 40050.000000, total balance 693620.000000 quantity 38
+day 148: buy 5 units at price 39750.000000, total balance 653870.000000 quantity 43
+day 149: buy 5 units at price 40250.000000, total balance 613620.000000 quantity 48
+day 150: buy 5 units at price 40900.000000, total balance 572720.000000 quantity 53
+day 152: buy 5 units at price 40850.000000, total balance 531870.000000 quantity 58
+day 153: buy 1 units at price 8170.000000, total balance 523700.000000 quantity 59
+day 159: buy 1 units at price 8220.000000, total balance 515480.000000 quantity 60
+day 161: buy 5 units at price 40600.000000, total balance 474880.000000 quantity 65
+day 163: buy 1 units at price 8180.000000, total balance 466700.000000 quantity 66
+day 164, sell 5 units at price 41500.000000, investment 378.662053 %, total balance 508200.000000, quantity 61
+day 166: buy 5 units at price 41750.000000, total balance 466450.000000 quantity 66
+day 167: buy 1 units at price 8370.000000, total balance 458080.000000 quantity 67
+day 168: buy 5 units at price 41900.000000, total balance 416180.000000 quantity 72
+day 171, sell 5 units at price 43150.000000, investment 397.693195 %, total balance 459330.000000, quantity 67
+day 172, sell 5 units at price 43400.000000, investment 393.181818 %, total balance 502730.000000, quantity 62
+day 174, sell 5 units at price 43600.000000, investment 2.951594 %, total balance 546330.000000, quantity 57
+day 177, sell 5 units at price 43500.000000, investment 411.764706 %, total balance 589830.000000, quantity 52
+day 178, sell 5 units at price 43450.000000, investment 1.637427 %, total balance 633280.000000, quantity 47
+day 179, sell 5 units at price 43400.000000, investment 1.639344 %, total balance 676680.000000, quantity 42
+day 180, sell 5 units at price 43250.000000, investment 414.268728 %, total balance 719930.000000, quantity 37
+day 181: buy 5 units at price 43300.000000, total balance 676630.000000 quantity 42
+day 182, sell 5 units at price 43050.000000, investment 1.056338 %, total balance 719680.000000, quantity 37
+day 183, sell 5 units at price 43350.000000, investment 414.234875 %, total balance 763030.000000, quantity 32
+day 184: buy 5 units at price 43400.000000, total balance 719630.000000 quantity 37
+day 185, sell 5 units at price 43150.000000, investment 2.251185 %, total balance 762780.000000, quantity 32
+day 186, sell 5 units at price 43000.000000, investment 3.365385 %, total balance 805780.000000, quantity 27
+day 187, sell 5 units at price 43050.000000, investment 3.361345 %, total balance 848830.000000, quantity 22
+day 188: buy 1 units at price 8620.000000, total balance 840210.000000 quantity 23
+day 191, sell 5 units at price 43150.000000, investment 3.725962 %, total balance 883360.000000, quantity 18
+day 192, sell 5 units at price 43200.000000, investment 5.365854 %, total balance 926560.000000, quantity 13
+day 193, sell 5 units at price 43150.000000, investment 7.605985 %, total balance 969710.000000, quantity 8
+day 194, sell 5 units at price 43250.000000, investment 7.990012 %, total balance 1012960.000000, quantity 3
+day 195, sell 3 units at price 25920.000000, investment -34.792453 %, total balance 1038880.000000, quantity 0
+day 196: buy 5 units at price 43200.000000, total balance 995680.000000 quantity 5
+day 197, sell 5 units at price 43200.000000, investment 7.329193 %, total balance 1038880.000000, quantity 0
+day 198: buy 5 units at price 43100.000000, total balance 995780.000000 quantity 5
+day 199: buy 1 units at price 8630.000000, total balance 987150.000000 quantity 6
+day 200, sell 5 units at price 43150.000000, investment 5.501222 %, total balance 1030300.000000, quantity 1
+day 201: buy 5 units at price 43150.000000, total balance 987150.000000 quantity 6
+day 202: buy 1 units at price 8630.000000, total balance 978520.000000 quantity 7
+day 203: buy 1 units at price 8610.000000, total balance 969910.000000 quantity 8
+day 204: buy 1 units at price 8600.000000, total balance 961310.000000 quantity 9
+day 205, sell 5 units at price 43150.000000, investment 5.630355 %, total balance 1004460.000000, quantity 4
+day 206, sell 4 units at price 34640.000000, investment 323.990208 %, total balance 1039100.000000, quantity 0
+day 224: buy 1 units at price 8700.000000, total balance 1030400.000000 quantity 1
+day 228: buy 1 units at price 8570.000000, total balance 1021830.000000 quantity 2
+day 230: buy 5 units at price 42500.000000, total balance 979330.000000 quantity 7
+day 232, sell 5 units at price 43100.000000, investment 395.402299 %, total balance 1022430.000000, quantity 2
+day 233, sell 2 units at price 17260.000000, investment 101.400233 %, total balance 1039690.000000, quantity 0
+day 234: buy 5 units at price 43350.000000, total balance 996340.000000 quantity 5
+day 235, sell 5 units at price 43600.000000, investment 2.588235 %, total balance 1039940.000000, quantity 0
+day 242: buy 1 units at price 8800.000000, total balance 1031140.000000 quantity 1
+day 243, sell 1 units at price 8810.000000, investment 0.113636 %, total balance 1039950.000000, quantity 0
+day 245: buy 1 units at price 8290.000000, total balance 1031660.000000 quantity 1
+day 246: buy 5 units at price 41150.000000, total balance 990510.000000 quantity 6
+day 247: buy 5 units at price 41150.000000, total balance 949360.000000 quantity 11
+day 248: buy 5 units at price 40700.000000, total balance 908660.000000 quantity 16
+day 251: buy 5 units at price 40800.000000, total balance 867860.000000 quantity 21
+day 252: buy 1 units at price 8160.000000, total balance 859700.000000 quantity 22
+day 253: buy 1 units at price 8150.000000, total balance 851550.000000 quantity 23
+day 256: buy 1 units at price 8170.000000, total balance 843380.000000 quantity 24
+day 258: buy 5 units at price 40800.000000, total balance 802580.000000 quantity 29
+day 260: buy 5 units at price 40050.000000, total balance 762530.000000 quantity 34
+day 262: buy 1 units at price 7870.000000, total balance 754660.000000 quantity 35
+day 265: buy 5 units at price 39250.000000, total balance 715410.000000 quantity 40
+day 266: buy 5 units at price 39000.000000, total balance 676410.000000 quantity 45
+day 267: buy 5 units at price 39200.000000, total balance 637210.000000 quantity 50
+day 269: buy 5 units at price 40000.000000, total balance 597210.000000 quantity 55
+day 271: buy 5 units at price 39400.000000, total balance 557810.000000 quantity 60
+day 273, sell 5 units at price 39350.000000, investment 374.668275 %, total balance 597160.000000, quantity 55
+day 277: buy 5 units at price 36750.000000, total balance 560410.000000 quantity 60
+day 280: buy 5 units at price 36200.000000, total balance 524210.000000 quantity 65
+day 282: buy 5 units at price 36150.000000, total balance 488060.000000 quantity 70
+day 283: buy 5 units at price 35500.000000, total balance 452560.000000 quantity 75
+day 284: buy 5 units at price 35500.000000, total balance 417060.000000 quantity 80
+day 285: buy 5 units at price 35150.000000, total balance 381910.000000 quantity 85
+day 286: buy 5 units at price 35400.000000, total balance 346510.000000 quantity 90
+day 295: buy 5 units at price 34750.000000, total balance 311760.000000 quantity 95
+day 297: buy 5 units at price 33800.000000, total balance 277960.000000 quantity 100
+day 298: buy 5 units at price 33300.000000, total balance 244660.000000 quantity 105
+day 299: buy 5 units at price 30400.000000, total balance 214260.000000 quantity 110
+day 300: buy 5 units at price 31050.000000, total balance 183210.000000 quantity 115
+day 301: buy 5 units at price 29250.000000, total balance 153960.000000 quantity 120
+day 302: buy 5 units at price 31350.000000, total balance 122610.000000 quantity 125
+day 303: buy 5 units at price 33250.000000, total balance 89360.000000 quantity 130
+day 306: buy 1 units at price 7190.000000, total balance 82170.000000 quantity 131
+day 313: buy 5 units at price 37900.000000, total balance 44270.000000 quantity 136
+day 314, sell 5 units at price 37900.000000, investment -7.897934 %, total balance 82170.000000, quantity 131
+day 315: buy 1 units at price 7750.000000, total balance 74420.000000 quantity 132
+day 316: buy 1 units at price 7580.000000, total balance 66840.000000 quantity 133
+day 317: buy 5 units at price 38450.000000, total balance 28390.000000 quantity 138
+day 318, sell 5 units at price 38450.000000, investment -6.561361 %, total balance 66840.000000, quantity 133
+day 319: buy 5 units at price 38550.000000, total balance 28290.000000 quantity 138
+day 320: buy 5 units at price 38250.000000, total balance -9960.000000 quantity 143
+day 322, sell 5 units at price 37900.000000, investment -6.879607 %, total balance 27940.000000, quantity 138
+day 324, sell 5 units at price 37650.000000, investment -7.720588 %, total balance 65590.000000, quantity 133
+day 330, sell 5 units at price 39950.000000, investment 389.583333 %, total balance 105540.000000, quantity 128
+day 331: buy 5 units at price 40100.000000, total balance 65440.000000 quantity 133
+day 332, sell 5 units at price 40150.000000, investment 392.638037 %, total balance 105590.000000, quantity 128
+day 333, sell 5 units at price 39900.000000, investment 388.372093 %, total balance 145490.000000, quantity 123
+day 334: buy 1 units at price 7940.000000, total balance 137550.000000 quantity 124
+day 335: buy 1 units at price 7780.000000, total balance 129770.000000 quantity 125
+day 336: buy 5 units at price 39100.000000, total balance 90670.000000 quantity 130
+day 337, sell 5 units at price 39650.000000, investment -2.818627 %, total balance 130320.000000, quantity 125
+day 338: buy 1 units at price 8000.000000, total balance 122320.000000 quantity 126
+day 339: buy 5 units at price 39950.000000, total balance 82370.000000 quantity 131
+day 340: buy 5 units at price 39850.000000, total balance 42520.000000 quantity 136
+day 341: buy 1 units at price 7840.000000, total balance 34680.000000 quantity 137
+day 342: buy 5 units at price 39400.000000, total balance -4720.000000 quantity 142
+day 346, sell 5 units at price 39950.000000, investment -0.249688 %, total balance 35230.000000, quantity 137
+day 347, sell 5 units at price 40100.000000, investment 409.529860 %, total balance 75330.000000, quantity 132
+day 348: buy 1 units at price 8040.000000, total balance 67290.000000 quantity 133
+day 349: buy 1 units at price 8120.000000, total balance 59170.000000 quantity 134
+day 350, sell 5 units at price 40250.000000, investment 2.547771 %, total balance 99420.000000, quantity 129
+day 351: buy 5 units at price 40450.000000, total balance 58970.000000 quantity 134
+day 352: buy 1 units at price 8150.000000, total balance 50820.000000 quantity 135
+day 353: buy 1 units at price 8140.000000, total balance 42680.000000 quantity 136
+day 354: buy 5 units at price 40600.000000, total balance 2080.000000 quantity 141
+day 359, sell 5 units at price 41350.000000, investment 6.025641 %, total balance 43430.000000, quantity 136
+day 360, sell 5 units at price 42450.000000, investment 8.290816 %, total balance 85880.000000, quantity 131
+day 361: buy 5 units at price 42400.000000, total balance 43480.000000 quantity 136
+day 362: buy 1 units at price 8380.000000, total balance 35100.000000 quantity 137
+day 364: buy 5 units at price 41650.000000, total balance -6550.000000 quantity 142
+day 369, sell 5 units at price 41450.000000, investment 3.625000 %, total balance 34900.000000, quantity 137
+day 370, sell 5 units at price 41600.000000, investment 5.583756 %, total balance 76500.000000, quantity 132
+day 371: buy 5 units at price 41600.000000, total balance 34900.000000 quantity 137
+day 373: buy 5 units at price 41750.000000, total balance -6850.000000 quantity 142
+day 375, sell 5 units at price 42350.000000, investment 15.238095 %, total balance 35500.000000, quantity 137
+day 376: buy 5 units at price 42100.000000, total balance -6600.000000 quantity 142
+day 380, sell 5 units at price 42850.000000, investment 18.370166 %, total balance 36250.000000, quantity 137
+day 382, sell 5 units at price 43350.000000, investment 19.917012 %, total balance 79600.000000, quantity 132
+day 383, sell 5 units at price 44450.000000, investment 25.211268 %, total balance 124050.000000, quantity 127
+day 384, sell 5 units at price 45050.000000, investment 26.901408 %, total balance 169100.000000, quantity 122
+day 386, sell 5 units at price 46550.000000, investment 32.432432 %, total balance 215650.000000, quantity 117
+day 387, sell 5 units at price 46650.000000, investment 31.779661 %, total balance 262300.000000, quantity 112
+day 388, sell 5 units at price 46350.000000, investment 33.381295 %, total balance 308650.000000, quantity 107
+day 389: buy 1 units at price 9190.000000, total balance 299460.000000 quantity 108
+day 390, sell 5 units at price 45550.000000, investment 34.763314 %, total balance 345010.000000, quantity 103
+day 391, sell 5 units at price 45100.000000, investment 35.435435 %, total balance 390110.000000, quantity 98
+day 392: buy 5 units at price 45500.000000, total balance 344610.000000 quantity 103
+day 393, sell 5 units at price 46200.000000, investment 51.973684 %, total balance 390810.000000, quantity 98
+day 394, sell 5 units at price 46750.000000, investment 50.563607 %, total balance 437560.000000, quantity 93
+day 395, sell 5 units at price 47200.000000, investment 61.367521 %, total balance 484760.000000, quantity 88
+day 396: buy 1 units at price 9440.000000, total balance 475320.000000 quantity 89
+day 397: buy 1 units at price 9680.000000, total balance 465640.000000 quantity 90
+day 400, sell 5 units at price 48000.000000, investment 53.110048 %, total balance 513640.000000, quantity 85
+day 401, sell 5 units at price 47700.000000, investment 43.458647 %, total balance 561340.000000, quantity 80
+day 403: buy 5 units at price 46450.000000, total balance 514890.000000 quantity 85
+day 404, sell 5 units at price 45100.000000, investment 527.260083 %, total balance 559990.000000, quantity 80
+day 405: buy 5 units at price 45750.000000, total balance 514240.000000 quantity 85
+day 406: buy 1 units at price 9150.000000, total balance 505090.000000 quantity 86
+day 407: buy 1 units at price 9230.000000, total balance 495860.000000 quantity 87
+day 408, sell 5 units at price 45900.000000, investment 21.108179 %, total balance 541760.000000, quantity 82
+day 410: buy 1 units at price 9190.000000, total balance 532570.000000 quantity 83
+day 411: buy 5 units at price 46550.000000, total balance 486020.000000 quantity 88
+day 412: buy 5 units at price 46450.000000, total balance 439570.000000 quantity 93
+day 414: buy 1 units at price 9300.000000, total balance 430270.000000 quantity 94
+day 415, sell 5 units at price 46300.000000, investment 497.419355 %, total balance 476570.000000, quantity 89
+day 416: buy 1 units at price 9280.000000, total balance 467290.000000 quantity 90
+day 417: buy 5 units at price 46300.000000, total balance 420990.000000 quantity 95
+day 418: buy 5 units at price 45950.000000, total balance 375040.000000 quantity 100
+day 420: buy 5 units at price 46050.000000, total balance 328990.000000 quantity 105
+day 421, sell 5 units at price 46250.000000, investment 510.158311 %, total balance 375240.000000, quantity 100
+day 422: buy 5 units at price 46150.000000, total balance 329090.000000 quantity 105
+day 423: buy 5 units at price 46100.000000, total balance 282990.000000 quantity 110
+day 424: buy 1 units at price 9230.000000, total balance 273760.000000 quantity 111
+day 425: buy 1 units at price 9270.000000, total balance 264490.000000 quantity 112
+day 427, sell 5 units at price 46000.000000, investment 19.635891 %, total balance 310490.000000, quantity 107
+day 428: buy 5 units at price 46450.000000, total balance 264040.000000 quantity 112
+day 429: buy 5 units at price 46000.000000, total balance 218040.000000 quantity 117
+day 431: buy 5 units at price 46700.000000, total balance 171340.000000 quantity 122
+day 440, sell 5 units at price 47700.000000, investment 23.735409 %, total balance 219040.000000, quantity 117
+day 441: buy 5 units at price 47500.000000, total balance 171540.000000 quantity 122
+day 442: buy 5 units at price 47600.000000, total balance 123940.000000 quantity 127
+day 443: buy 1 units at price 9500.000000, total balance 114440.000000 quantity 128
+day 445: buy 5 units at price 48250.000000, total balance 66190.000000 quantity 133
+day 447, sell 5 units at price 48750.000000, investment 27.450980 %, total balance 114940.000000, quantity 128
+day 450, sell 5 units at price 48550.000000, investment 21.072319 %, total balance 163490.000000, quantity 123
+day 452: buy 1 units at price 9700.000000, total balance 153790.000000 quantity 124
+day 453, sell 5 units at price 48950.000000, investment 516.498741 %, total balance 202740.000000, quantity 119
+day 454, sell 5 units at price 48700.000000, investment 525.964010 %, total balance 251440.000000, quantity 114
+day 455, sell 5 units at price 49150.000000, investment 25.703325 %, total balance 300590.000000, quantity 109
+day 456: buy 1 units at price 9830.000000, total balance 290760.000000 quantity 110
+day 457, sell 5 units at price 49550.000000, investment 519.375000 %, total balance 340310.000000, quantity 105
+day 459: buy 1 units at price 10050.000000, total balance 330260.000000 quantity 106
+day 460, sell 5 units at price 50500.000000, investment 26.408010 %, total balance 380760.000000, quantity 101
+day 461, sell 5 units at price 50750.000000, investment 27.352572 %, total balance 431510.000000, quantity 96
+day 462: buy 1 units at price 10300.000000, total balance 421210.000000 quantity 97
+day 463, sell 5 units at price 51500.000000, investment 556.887755 %, total balance 472710.000000, quantity 92
+day 464, sell 5 units at price 50750.000000, investment 28.807107 %, total balance 523460.000000, quantity 87
+day 465: buy 1 units at price 10150.000000, total balance 513310.000000 quantity 88
+day 466, sell 5 units at price 51250.000000, investment 537.437811 %, total balance 564560.000000, quantity 83
+day 467, sell 5 units at price 51250.000000, investment 531.157635 %, total balance 615810.000000, quantity 78
+day 468, sell 5 units at price 52000.000000, investment 28.553770 %, total balance 667810.000000, quantity 73
+day 469, sell 5 units at price 53000.000000, investment 550.306748 %, total balance 720810.000000, quantity 68
+day 470, sell 5 units at price 53250.000000, investment 554.176904 %, total balance 774060.000000, quantity 63
+day 472: buy 1 units at price 10650.000000, total balance 763410.000000 quantity 64
+day 473, sell 5 units at price 53750.000000, investment 32.389163 %, total balance 817160.000000, quantity 59
+day 474, sell 5 units at price 54000.000000, investment 27.358491 %, total balance 871160.000000, quantity 54
+day 476, sell 5 units at price 54250.000000, investment 547.374702 %, total balance 925410.000000, quantity 49
+day 477, sell 5 units at price 53750.000000, investment 29.051621 %, total balance 979160.000000, quantity 44
+day 479: buy 5 units at price 52750.000000, total balance 926410.000000 quantity 49
+day 480, sell 5 units at price 52750.000000, investment 26.802885 %, total balance 979160.000000, quantity 44
+day 481, sell 5 units at price 53500.000000, investment 28.143713 %, total balance 1032660.000000, quantity 39
+day 483, sell 5 units at price 53500.000000, investment 27.078385 %, total balance 1086160.000000, quantity 34
+day 485: buy 1 units at price 10550.000000, total balance 1075610.000000 quantity 35
+day 486: buy 5 units at price 53000.000000, total balance 1022610.000000 quantity 40
+day 487, sell 5 units at price 53500.000000, investment 482.154516 %, total balance 1076110.000000, quantity 35
+day 488, sell 5 units at price 53750.000000, investment 18.131868 %, total balance 1129860.000000, quantity 30
+day 489: buy 1 units at price 10850.000000, total balance 1119010.000000 quantity 31
+day 490, sell 5 units at price 55500.000000, investment 487.923729 %, total balance 1174510.000000, quantity 26
+day 491, sell 5 units at price 56250.000000, investment 481.095041 %, total balance 1230760.000000, quantity 21
+day 492: buy 1 units at price 9970.000000, total balance 1220790.000000 quantity 22
+day 493: buy 1 units at price 9710.000000, total balance 1211080.000000 quantity 23
+day 494: buy 1 units at price 9280.000000, total balance 1201800.000000 quantity 24
+day 495: buy 5 units at price 46400.000000, total balance 1155400.000000 quantity 29
+day 496: buy 5 units at price 46500.000000, total balance 1108900.000000 quantity 34
+day 497: buy 1 units at price 9400.000000, total balance 1099500.000000 quantity 35
+day 499: buy 5 units at price 46750.000000, total balance 1052750.000000 quantity 40
+day 500: buy 1 units at price 9280.000000, total balance 1043470.000000 quantity 41
+day 501: buy 1 units at price 9290.000000, total balance 1034180.000000 quantity 42
+day 504: buy 5 units at price 45900.000000, total balance 988280.000000 quantity 47
+day 505, sell 5 units at price 45750.000000, investment -1.506997 %, total balance 1034030.000000, quantity 42
+day 506: buy 5 units at price 45350.000000, total balance 988680.000000 quantity 47
+day 507: buy 5 units at price 45450.000000, total balance 943230.000000 quantity 52
+day 508: buy 5 units at price 45700.000000, total balance 897530.000000 quantity 57
+day 513: buy 5 units at price 45250.000000, total balance 852280.000000 quantity 62
+day 514: buy 5 units at price 45750.000000, total balance 806530.000000 quantity 67
+day 515: buy 5 units at price 45800.000000, total balance 760730.000000 quantity 72
+day 517: buy 1 units at price 9180.000000, total balance 751550.000000 quantity 73
+day 518, sell 5 units at price 46450.000000, investment 1.530055 %, total balance 798000.000000, quantity 68
+day 519: buy 1 units at price 9290.000000, total balance 788710.000000 quantity 69
+day 525, sell 5 units at price 48000.000000, investment 424.590164 %, total balance 836710.000000, quantity 64
+day 530, sell 5 units at price 47550.000000, investment 415.167931 %, total balance 884260.000000, quantity 59
+day 531, sell 5 units at price 47250.000000, investment 414.145811 %, total balance 931510.000000, quantity 54
+day 532, sell 5 units at price 47300.000000, investment 1.611171 %, total balance 978810.000000, quantity 49
+day 533, sell 5 units at price 51750.000000, investment 11.410118 %, total balance 1030560.000000, quantity 44
+day 534, sell 5 units at price 52250.000000, investment 461.827957 %, total balance 1082810.000000, quantity 39
+day 535, sell 5 units at price 52750.000000, investment 468.426724 %, total balance 1135560.000000, quantity 34
+day 536: buy 1 units at price 10600.000000, total balance 1124960.000000 quantity 35
+day 537, sell 5 units at price 54250.000000, investment 17.170626 %, total balance 1179210.000000, quantity 30
+day 538, sell 5 units at price 54500.000000, investment 18.607182 %, total balance 1233710.000000, quantity 25
+day 539, sell 5 units at price 56500.000000, investment 22.692725 %, total balance 1290210.000000, quantity 20
+day 540, sell 5 units at price 56000.000000, investment 21.343445 %, total balance 1346210.000000, quantity 15
+day 541, sell 5 units at price 55000.000000, investment 19.305857 %, total balance 1401210.000000, quantity 10
+day 542, sell 5 units at price 55000.000000, investment 495.882990 %, total balance 1456210.000000, quantity 5
+day 543, sell 5 units at price 55000.000000, investment 493.311758 %, total balance 1511210.000000, quantity 0
+
+total gained 511210.00, total investment 51.12 %
