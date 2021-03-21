@@ -38,9 +38,18 @@ for stock in tqdm(stock_list):
     nx = stock_csv.loc[stock_csv['date'] == stock_csv_rsi['date'].iloc[0]].index
     if nx[0] == (len(stock_csv['date']) - 1):
         continue
-    else:
-        stock_csv_next_day = stock_csv.loc[int(nx[0]) + 1]
-    stock_rsi_day.append([str(stock), int(stock_csv_rsi['close'].iloc[0]), int(stock_csv_rsi['rsi'].iloc[0])])
+    stock_csv_next_day = stock_csv.loc[int(nx[0]) + 1]
+    if stock_csv.index[-1] <= int(nx[0]) + 30:
+        continue
+    stock_csv_next_month = stock_csv.loc[int(nx[0]) + 30]
+    stock_rsi_next_day.append([str(stock), (((stock_csv_next_day['close'] - stock_csv_rsi['close'].iloc[0]) / stock_csv_rsi['close'].iloc[0]) * 100)])
+    stock_rsi_next_month.append([str(stock), (((stock_csv_next_month['close'] - stock_csv_rsi['close'].iloc[0]) / stock_csv_rsi['close'].iloc[0]) * 100)])
+    stock_rsi_next_day = pd.DataFrame(stock_rsi_next_day)
+    stock_rsi_next_month = pd.DataFrame(stock_rsi_next_month)
+
+print(stock_rsi_next_day[1].sum() / len(stock_rsi_next_day))
+print(stock_rsi_next_month[1].sum() / len(stock_rsi_next_month))
+
     # stock_rsi_next_day.append([str(stock), int(stock_csv_next_day['close']), int(stock_csv_next_day['rsi'])])
     # print(stock_rsi_day)
 # df = pd.DataFrame(stock_rsi_day)
