@@ -40,6 +40,7 @@ if __name__ == '__main__':
     if not os.path.exists(results_52w_csv):
         # Hit the high in 52 weeks until today
         print('{} - 52 weeks high update for analysis ...'.format(datetime.today().strftime("%Y-%m-%d")))
+        time.sleep(0.5)
         df_52w_csv = stock_52w_update(util.Krx_Char_folder_path)
         # Hit the high in 52 weeks before 2021/01/01 (base year)
         base_52w_csv = base_year_52_weeks_update(df_52w_csv, base_year)
