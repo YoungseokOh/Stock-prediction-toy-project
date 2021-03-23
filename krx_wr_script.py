@@ -34,10 +34,10 @@ def pykrx_scratch_save_csv(ticker, date_Start, date_End, Krx_Char_folder_path):
     stock_folder_name = stock_name + '_' + ticker
     df = stock.get_market_ohlcv_by_date(date_Start, date_End, ticker)
     if df.empty:
-        print('This stock is empty : {}'.format(stock_name))
+        # print('This stock is empty : {}'.format(stock_name))
         return 0
     if df['시가'].iloc[0] == 0:
-        print('This stock\'s \'open\' doesn\'t exists : {}'.format(stock_name))
+        # print('This stock\'s \'open\' doesn\'t exists : {}'.format(stock_name))
         return 0
     df = df.reset_index()
     df = df.rename(columns={'날짜': 'date', '시가': 'open', '고가': 'high', '저가': 'low', '종가': 'close', '거래량': 'volume'})

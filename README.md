@@ -4,6 +4,11 @@
   <img src="results/코리아센터.png" width="500"/>
 </p>
 
+>### RSI test by YoY
+<p align="center">
+  <img src="results/rsi_year_results.png" width="500"/>
+</p>
+
 >### To do list
 ```
 1. Backtesting - 52 weeks high list (done)
