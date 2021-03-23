@@ -31,14 +31,14 @@ warnings.filterwarnings("ignore")
 simulation_size = 5
 num_layers = 2 #층 쌓는 hidden layer 수  ex)2층
 size_layer = 256 # LSTM 안을 구성하는 노드수
-timestamp = 10
-epoch = 500
+timestamp = 5 # 일주일 기준 ex) 5일을 한번 학습으로 사용
+epoch = 2000
 dropout_rate = 0.8
 test_size = 30
 learning_rate = 0.0001
 
-date_Start = '20050101'
-stock_input = "앤씨앤"
+date_Start = '20150101'
+stock_input = "GS리테일"
 date_End = datetime.today().strftime("%Y%m%d")
 
 print("Daily candle dates {} - {}".format(date_Start, date_End))
@@ -52,12 +52,13 @@ for ticker in stock.get_market_ticker_list(market="ALL"):
 df_korea = stock.get_market_ohlcv_by_date(date_Start, date_End, korea_center_ticker)
 df_korea = df_korea.reset_index()
 print(len(df_korea))
-df_korea.insert(5, '종가2', df_korea['종가'])
+#df_korea.insert(5, '종가2', df_korea['종가'])
 #df = pd.read_csv('../dataset/GOOG-year.csv')
 #df_korea.rename(columns=df.columns)
 #print(df_korea.head())
 #print(df.head())
 print(df_korea.iloc[:, 4:5].tail())
+
 minmax = MinMaxScaler().fit(df_korea.iloc[:, 4:5].astype('float32')) # Close index
 df_log = minmax.transform(df_korea.iloc[:, 4:5].astype('float32')) # Close index
 df_log = pd.DataFrame(df_log)
@@ -121,7 +122,7 @@ def anchor(signal, weight):
        last = smoothed_val
    return buffer
 
-def forecast():
+def forecast(num):
    tf.reset_default_graph()
    modelnn = Model(
        learning_rate, num_layers, df_log.shape[1], size_layer, df_log.shape[1], dropout_rate
@@ -131,6 +132,8 @@ def forecast():
    sess = tf.Session(config=config)
    sess.run(tf.global_variables_initializer())
    date_ori = pd.to_datetime(df_korea.iloc[:, 0]).tolist()
+
+   saver = tf.train.Saver()
 
    pbar = tqdm(range(epoch), desc='train loop')
    for i in pbar:
@@ -154,6 +157,9 @@ def forecast():
            total_loss.append(loss)
            total_acc.append(calculate_accuracy(batch_y[:, 0], logits[:, 0]))
        pbar.set_postfix(cost=np.mean(total_loss), acc=np.mean(total_acc))
+
+   saver.save(sess, './model_result/'+ stock_input + '_'+str(num)) #모델 save
+
 
    future_day = test_size
 
@@ -211,7 +217,7 @@ def forecast():
 results = []
 for i in range(simulation_size):
    print('simulation %d'%(i + 1))
-   results.append(forecast())
+   results.append(forecast(i))
 
 date_ori = pd.to_datetime(df_korea.iloc[:, 0]).tolist()
 for i in range(test_size):
