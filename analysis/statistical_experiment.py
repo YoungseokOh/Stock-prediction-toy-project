@@ -11,6 +11,20 @@ import os
 
 # 1. RSI statistical analysis
 # 2. Analysis of 52 weeks high past history
+# 3. BB_band
+
+def stock_year_list(year):
+    stcal_ex = util('E:/{}_Stocks'.format(year))
+    Krx_Char_folder_path = stcal_ex.Krx_Char_folder_path
+    start_date = '{}0101'.format(year)
+    end_date = '{}1231'.format(year)
+    # Scratch from start_date to end_date
+    if not os.path.exists(Krx_Char_folder_path):
+        pykrx_scratch(start_date, end_date, Krx_Char_folder_path)
+    else:
+        print('Folder is existed. Path is {}'.format(Krx_Char_folder_path))
+    stock_list = os.listdir(Krx_Char_folder_path)
+    return stock_list, Krx_Char_folder_path
 
 def plot_rsi_year_results(results_list):
     year_results = results_list
@@ -28,8 +42,6 @@ def plot_rsi_year_results(results_list):
     ax.legend((next_days[0], next_months[0]), ('Next day', 'Next month'))
     ax.grid()
     ax.set_title('RSI test by YOY')
-    fig.savefig('../results/rsi_year_results.png')
-
     def autolabel(rects):
         for rect in rects:
             h = rect.get_height()
@@ -37,25 +49,63 @@ def plot_rsi_year_results(results_list):
                     ha='center', va='bottom', size=8)
     autolabel(next_days)
     autolabel(next_months)
+    fig.gca()
+    fig.savefig('../results/rsi_year_results.png')
 
-def rsi_year_test(year_list):
+def BB_band_year_test(year_list):
     year_results = []
     for year in year_list:
-        stcal_ex = util('E:/{}_Stocks'.format(year))
-        Krx_Char_folder_path = stcal_ex.Krx_Char_folder_path
-        start_date = '{}0101'.format(year)
-        end_date = '{}1231'.format(year)
-        # Scratch from start_date to end_date
-        if not os.path.exists(Krx_Char_folder_path):
-            pykrx_scratch(start_date, end_date, Krx_Char_folder_path)
-        else:
-            print('Folder is existed. Path is {}'.format(Krx_Char_folder_path))
-        stock_list = os.listdir(Krx_Char_folder_path)
+        stock_list, year_path = stock_year_list(year)
         stock_rsi_day = []
         stock_rsi_next_day = []
         stock_rsi_next_month = []
         for stock in tqdm(stock_list):
-            stock_csv = cal_technical_indicator_name(stock, Krx_Char_folder_path)
+            stock_csv = cal_technical_indicator_name(stock, year_path)
+            if stock_csv.empty:
+                print('This stock is empty : {}'.format(stock))
+                continue
+            if '스팩' in stock:
+                continue
+            if len(stock_csv['date']) < 200:
+                continue
+            stock_bool = stock_csv['lower_band'] > stock_csv['close']
+            stock_csv['bb_bool'] = stock_bool
+            if stock_csv['bb_bool'].sum() == 0: # This stock had moved in BB
+                continue
+            bb_csv = stock_csv.iloc[stock_csv['bb_bool'].values == True]
+            # print(bb_csv)
+            bb_csv['bb_p'] = 100 - (bb_csv['close'] / bb_csv['lower_band'] * 100)
+            bb_csv = sorting_by_column(bb_csv, 'bb_p', False, len(bb_csv))
+            bb_csv = bb_csv.dropna(axis=0) # zero handling
+            nx = stock_csv.loc[stock_csv['date'] == bb_csv['date'].iloc[0]].index
+            # print('nx num : {}'.format(nx[0]))
+            if nx[0] == (len(stock_csv['date']) - 1):
+                continue
+            stock_csv_next_day = stock_csv.loc[int(nx[0]) + 1]
+            if stock_csv.index[-1] < int(nx[0]) + 15:
+                continue
+            # print(stock)
+            # print(stock_csv.loc[int(nx[0]) + 15])
+            stock_csv_next_month = stock_csv.loc[int(nx[0]) + 15]
+            stock_rsi_next_day.append([str(stock), (((stock_csv_next_day['close'] - bb_csv['close'].iloc[0]) / bb_csv['close'].iloc[0]) * 100)])
+            stock_rsi_next_month.append([str(stock), (((stock_csv_next_month['close'] - bb_csv['close'].iloc[0]) / bb_csv['close'].iloc[0]) * 100)])
+            stock_rsi_next_day = pd.DataFrame(stock_rsi_next_day)
+            stock_rsi_next_month = pd.DataFrame(stock_rsi_next_month)
+        year_results.append([year, stock_rsi_next_day[1].sum() / len(stock_rsi_next_day), stock_rsi_next_month[1].sum() / len(stock_rsi_next_month)])
+        print(stock_rsi_next_day[1].sum() / len(stock_rsi_next_day))
+        print(stock_rsi_next_month[1].sum() / len(stock_rsi_next_month))
+    year_results = pd.DataFrame(year_results)
+    return year_results
+
+def rsi_year_test(year_list):
+    year_results = []
+    for year in year_list:
+        stock_list, year_path = stock_year_list(year)
+        stock_rsi_day = []
+        stock_rsi_next_day = []
+        stock_rsi_next_month = []
+        for stock in tqdm(stock_list):
+            stock_csv = cal_technical_indicator_name(stock, year_path)
             if stock_csv.empty:
                 print('This stock is empty : {}'.format(stock))
                 continue
@@ -83,5 +133,7 @@ def rsi_year_test(year_list):
     return year_results
 
 year_list = ['2014', '2015', '2016', '2017', '2018']
-year_results = rsi_year_test(year_list)
+year_results_rsi = rsi_year_test(year_list)
+# year_results_bb = BB_band_year_test(year_list)
+
 print('work is done!')

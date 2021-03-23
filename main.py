@@ -52,21 +52,21 @@ if __name__ == '__main__':
     #search_listed_stock(listed_year)
 
     # Evolution strategy analysis - base year test
-    base_year_52w_csv_path = 'results/base_year/' + '52_weeks_analysis_' + datetime.today().strftime("%Y-%m-%d") + '_before_{}'.format(base_year) +'.csv'
-    base_year_52w_csv = pd.read_csv(base_year_52w_csv_path)
-    top_10_base_year_52w = base_year_52w_csv.head(10)
-    investment = []
-    for stock in top_10_base_year_52w['stock']:
-        stock_csv = pykrx_read_csv(stock, util.Krx_Char_folder_path)
-        close = stock_csv.close.values.tolist()
-        window_size = 60
-        skip = 1
-        l = len(close) - 1
-        model = Model(window_size, 1000, 3)
-        agent = Agent(model, 1000000, 5, 5, window_size, close, skip)
-        agent.fit(500, 10)
-        fig = agent.buy(stock)
-        fig.savefig('results/base_year/base_year_strategy_results/{}/{}_plot_histroy.png'.format(today_date, stock))
+    # base_year_52w_csv_path = 'results/base_year/' + '52_weeks_analysis_' + datetime.today().strftime("%Y-%m-%d") + '_before_{}'.format(base_year) +'.csv'
+    # base_year_52w_csv = pd.read_csv(base_year_52w_csv_path)
+    # top_10_base_year_52w = base_year_52w_csv.head(10)
+    # investment = []
+    # for stock in top_10_base_year_52w['stock']:
+    #     stock_csv = pykrx_read_csv(stock, util.Krx_Char_folder_path)
+    #     close = stock_csv.close.values.tolist()
+    #     window_size = 60
+    #     skip = 1
+    #     l = len(close) - 1
+    #     model = Model(window_size, 1000, 3)
+    #     agent = Agent(model, 1000000, 5, 5, window_size, close, skip)
+    #     agent.fit(500, 10)
+    #     fig = agent.buy(stock)
+    #     fig.savefig('results/base_year/base_year_strategy_results/{}/{}_plot_histroy.png'.format(today_date, stock))
 
     # Evolution strategy analysis - stock_name test
     # stock_csv = pykrx_read_csv(stock_name, util.Krx_Char_folder_path)
