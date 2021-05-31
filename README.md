@@ -1,17 +1,22 @@
 # Stock_Prediction_Toy_Project
 >### Plot chart
 <p align="center">
-  <img src="results/코리아센터.png" width="500"/>
+  <img src="results/코리아센터.png" width="800"/>
 </p>
 
 >### RSI test by YoY
 <p align="center">
-  <img src="results/rsi_year_results.png" width="500"/>
+  <img src="results/rsi_year_results_+-version.png" width="500"/>
 </p>
 
 >### Bollinger band test by YoY
 <p align="center">
   <img src="results/Bollinger_band_year_results.png" width="500"/>
+</p>
+
+>### Ultimate oscillator test by YoY
+<p align="center">
+  <img src="results/Ultimate_oscillator_year_results.png" width="500"/>
 </p>
 
 >### To do list
