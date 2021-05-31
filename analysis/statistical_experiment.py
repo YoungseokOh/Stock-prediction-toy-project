@@ -170,6 +170,41 @@ def uo_year_test(year_list):
     year_results = pd.DataFrame(year_results)
     return year_results
 
+def uo_year_test(year_list):
+    year_results = []
+    for year in year_list:
+        stock_list, year_path = stock_year_list(year)
+        stock_rsi_day = []
+        stock_rsi_next_day = []
+        stock_rsi_next_month = []
+        for stock in tqdm(stock_list):
+            stock_csv = cal_technical_indicator_high_class(stock, year_path)
+            if stock_csv.empty:
+                print('This stock is empty : {}'.format(stock))
+                continue
+            if '스팩' in stock:
+                continue
+            if len(stock_csv['date']) < 200:
+                continue
+            stock_csv_uo = sorting_by_column(stock_csv, 'uo', True, 20)
+            stock_csv_uo = stock_csv_uo.dropna(axis=0) # zero handling
+            nx = stock_csv.loc[stock_csv['date'] == stock_csv_uo['date'].iloc[0]].index
+            if nx[0] == (len(stock_csv['date']) - 1):
+                continue
+            stock_csv_next_day = stock_csv.loc[int(nx[0]) + 1]
+            if stock_csv.index[-1] <= int(nx[0]) + 15:
+                continue
+            stock_csv_next_month = stock_csv.loc[int(nx[0]) + 15]
+            stock_rsi_next_day.append([str(stock), (((stock_csv_next_day['close'] - stock_csv_uo['close'].iloc[0]) / stock_csv_uo['close'].iloc[0]) * 100)])
+            stock_rsi_next_month.append([str(stock), (((stock_csv_next_month['close'] - stock_csv_uo['close'].iloc[0]) / stock_csv_uo['close'].iloc[0]) * 100)])
+            stock_rsi_next_day = pd.DataFrame(stock_rsi_next_day)
+            stock_rsi_next_month = pd.DataFrame(stock_rsi_next_month)
+        year_results.append([year, stock_rsi_next_day[1].sum() / len(stock_rsi_next_day), stock_rsi_next_month[1].sum() / len(stock_rsi_next_month)])
+        print(stock_rsi_next_day[1].sum() / len(stock_rsi_next_day))
+        print(stock_rsi_next_month[1].sum() / len(stock_rsi_next_month))
+    year_results = pd.DataFrame(year_results)
+    return year_results
+
 year_list = ['2014', '2015', '2016', '2017', '2018']
 # rsi test
 year_results_rsi = rsi_year_test(year_list)
