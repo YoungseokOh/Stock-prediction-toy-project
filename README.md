@@ -9,6 +9,11 @@
   <img src="results/rsi_year_results.png" width="500"/>
 </p>
 
+>### Bollinger band test by YoY
+<p align="center">
+  <img src="results/Bollinger_band_year_results.png" width="500"/>
+</p>
+
 >### To do list
 ```
 1. Backtesting - 52 weeks high list (done)
