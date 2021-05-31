@@ -70,7 +70,10 @@ def pykrx_scratch(date_Start, date_End, Krx_Char_folder_path):
 
 def pykrx_daily_update(Krx_Char_folder_path):
     today_date = datetime.today().strftime("%Y%m%d")
-    df = stock.get_market_ohlcv_by_ticker(today_date, market="ALL")
+    # df = stock.get_market_ohlcv_by_ticker(today_date, market="ALL")
+    df_kospi = stock.get_market_ohlcv_by_ticker(today_date, market="KOSPI")
+    df_kosdaq = stock.get_market_ohlcv_by_ticker(today_date, market="KOSDAQ")
+    df = pd.concat([df_kospi, df_kosdaq])
     df = df.reset_index()
     del df['거래대금']
     del df['등락률']
@@ -79,7 +82,9 @@ def pykrx_daily_update(Krx_Char_folder_path):
     count = 0
     for ticker in df['티커']:
         stock_name = stock.get_market_ticker_name(ticker)
-        ticker_csv = pykrx_read_csv(stock_name)
+        if not os.path.exists(Krx_Char_folder_path + '/' + stock_name):
+            continue
+        ticker_csv = pykrx_read_csv(stock_name, Krx_Char_folder_path)
         df_list = list(np.array(df.iloc[count].tolist()))
         df_list[0] = datetime.today().strftime("%Y-%m-%d")
         df_save = ticker_csv.append(pd.Series(df_list, index=ticker_csv.columns), ignore_index=True)

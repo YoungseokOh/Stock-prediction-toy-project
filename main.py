@@ -19,17 +19,20 @@ if __name__ == '__main__':
     listed_year = 2021
     today_date = datetime.today().strftime("%Y%m%d")
     # Pykrx scratch Test...
-    # pykrx_scratch(From_date, today_date, util.Krx_Char_folder_path) # KOSPI & KOSDAQ all stock scratch
-    # pykrx_daily_update(Krx_Char_folder_path) # Today update
+    pykrx_scratch(From_date, today_date, util.Krx_Char_folder_path) # KOSPI & KOSDAQ all stock scratch
+    # pykrx_daily_update(util.Krx_Char_folder_path) # Today update
     stock_csv = pykrx_read_csv(stock_name, util.Krx_Char_folder_path)
     # trainer = Model(opt)
+
+    # technical indicator high class
+    stock_csv = cal_technical_indicator_high_class(stock_name, util.Krx_Char_folder_path)
 
     # Base technical indicator
     stock_csv = cal_technical_indicator_name(stock_name, util.Krx_Char_folder_path)
     fig = plot_technical_indicators(stock_name, stock_csv, 300)
     fig.savefig('results/{}.png'.format(stock_name))
     # Personal technical indicator
-    # stock_csv_p = cal_technical_indicator_personal(stock_name, 10, 50, 120, False)
+    # stock_csv_p = cal_technical_indicator_personal(stock_name, util.Krx_Char_folder_path, 10, 50, 120, False, )
     # fig = plot_technical_indicators(stock_name, stock_csv_p, 300)
 
     # 52 weeks high price test...
