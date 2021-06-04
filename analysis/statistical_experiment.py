@@ -4,6 +4,7 @@ from datetime import timedelta
 from analysis.technical_indicator import *
 from util import *
 from top_20_stocks import *
+from stock_52_weeks import stock_52w_stock_date_check
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import matplotlib
@@ -205,14 +206,32 @@ def uo_year_test(year_list):
     year_results = pd.DataFrame(year_results)
     return year_results
 
-year_list = ['2014', '2015', '2016', '2017', '2018']
-# rsi test
-year_results_rsi = rsi_year_test(year_list)
-plot_year_results(year_results_rsi, 'rsi')
-# bb test
-year_results_bb = BB_band_year_test(year_list)
-plot_year_results(year_results_bb, 'Bollinger_band')
-# # uo test
-year_results_uo = uo_year_test(year_list)
-plot_year_results(year_results_uo, 'Ultimate_oscillator')
-print('work is done!')
+def base_year_each_stock_analysis(stock_name, base_year, date, data_path):
+    stock_base_year = stock_52w_stock_date_check(stock_name, base_year, date)
+    stock_ti = cal_technical_indicator_name(stock_base_year[0][0], data_path)
+
+    return 0
+def base_year_top_list_stock_analysis():
+
+    return 0
+
+
+util_s = util()
+stock_name = util_s.stock_name
+base_year = util_s.base_year
+date = '2021-06-02'
+path = util_s.Krx_Char_folder_path
+base_year_each_stock_analysis(stock_name, base_year, date, path)
+
+# Must move to main work's!
+# year_list = ['2014', '2015', '2016', '2017', '2018']
+# # rsi test
+# year_results_rsi = rsi_year_test(year_list)
+# plot_year_results(year_results_rsi, 'rsi')
+# # bb test
+# year_results_bb = BB_band_year_test(year_list)
+# plot_year_results(year_results_bb, 'Bollinger_band')
+# # # uo test
+# year_results_uo = uo_year_test(year_list)
+# plot_year_results(year_results_uo, 'Ultimate_oscillator')
+# print('work is done!')
