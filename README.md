@@ -1,7 +1,7 @@
 # Stock_Prediction_Toy_Project
 >### Plot chart
 <p align="center">
-  <img src="results/코리아센터.png" width="800"/>
+  <img src="results/코리아센터.png" width="600"/>
 </p>
 
 >### RSI test by YoY
@@ -21,19 +21,16 @@
 
 >### To do list
 ```
-1. Backtesting - 52 weeks high list (done)
-2. statistical analysis
-3. Merging LSTM model
-4. Daily chart save in each stock folder
-5. Feature extraction
-6. Filtering 52 weeks high stocks using Technical indicator
-7. Showing chart upgrade with trend line
+1. LSTM Vanila model change (TF - Pytorch)
+2. statistical analysis (base year top-10)
+3. Feature extraction
+4. Survey deep learning for stock prediction
+5. Collecting datasets
 ```
 
 >### Setup
 ```
-+ python 3.7
-pip install tensorflow==1.14
++ python 3.8
 pip install finta 
 pip install matplotlib
 pip install pandas 
@@ -45,5 +42,5 @@ pip install scikit-learn
 pip install tqdm
 pip install trendln
 pip install yfinance
-
+(Optional) pip install tensorflow==2.2.0
 ```
