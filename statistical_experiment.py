@@ -1,14 +1,13 @@
-from krx_wr_script import *
-from datetime import datetime
-from datetime import timedelta
 from analysis.technical_indicator import *
-from util import *
-from top_20_stocks import *
-from stock_52_weeks import stock_52w_stock_date_check
+from analysis.top_20_stocks import *
+from analysis.stock_52_weeks import *
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import matplotlib
+import pandas as pd
 import os
+from util import util
+
 matplotlib.rcParams['axes.unicode_minus'] = False
 
 # 1. RSI statistical analysis
@@ -206,22 +205,80 @@ def uo_year_test(year_list):
     year_results = pd.DataFrame(year_results)
     return year_results
 
-def base_year_each_stock_analysis(stock_name, base_year, date, data_path):
+def cal_golden_percent(stock_csv, date, nx_num):
+    if not (stock_csv['date'] == date).any():
+        return 0
+    else:
+        nx = stock_csv.loc[stock_csv['date'] == date].index
+        stock_ti_by_date = stock_csv.loc[int(nx[0]) + int(nx_num)]
+        upper_percentage = util_s.cal_percent(int((stock_ti_by_date['upper_band'])), int(stock_ti_by_date['close']))
+        short_golden = util_s.cal_percent(int(stock_ti_by_date['ema7']), int(stock_ti_by_date['ema50']))
+        mid_golden = util_s.cal_percent(int(stock_ti_by_date['ema50']), int(stock_ti_by_date['ema99']))
+        long_golden = util_s.cal_percent(int(stock_ti_by_date['ema7']), int(stock_ti_by_date['ema99']))
+        return list([stock_ti_by_date['date'], stock_ti_by_date['close'], upper_percentage, short_golden, mid_golden, long_golden, round(stock_ti_by_date['rsi'], 2)])
+
+def base_year_each_stock_analysis(stock_name, base_year, date, data_path ,nx_num):
     stock_base_year = stock_52w_stock_date_check(stock_name, base_year, date)
-    stock_ti = cal_technical_indicator_name(stock_base_year[0][0], data_path)
-
-    return 0
-def base_year_top_list_stock_analysis():
-
-    return 0
+    stock_ti = cal_technical_indicator_name(stock_base_year['stock'][0], data_path)
+    if cal_golden_percent(stock_ti, date, nx_num) == 0:
+        return None
+    else:
+        golden_list_today = cal_golden_percent(stock_ti, date, nx_num)
+    stock_base_year = stock_base_year.values.tolist()
+    stock_base_year[0].extend(golden_list_today)
+    df = pd.DataFrame(stock_base_year)
+    df = df.rename(columns={0: 'stock', 1: 'high_date', 2: 'gap', 3: 'high', 4: 'close_date', 5: 'close', 6: 'upper_percent', 7:'short_golden', 8: 'mid_golden', 9: 'long_golden', 10: 'rsi'})
+    return df
 
 
 util_s = util()
 stock_name = util_s.stock_name
 base_year = util_s.base_year
-date = '2021-06-02'
+date = '2021-03-11'
 path = util_s.Krx_Char_folder_path
-base_year_each_stock_analysis(stock_name, base_year, date, path)
+# stock_csv = base_year_each_stock_analysis(stock_name, base_year, date, path, 0) # zero means 'today'
+
+date = util_s.strdate_convert('2021-01-04') # from 2021.1.1
+timed = datetime.today() - date
+time_inv = [0, 1, 2, 7, 14]
+
+for i in range(int(timed.days)):
+    date_i = str(date.date())
+    results_52w_csv = 'results/this_year/' + '52_weeks_analysis_' + date_i + '.csv'
+    results_52w_base_year_csv = 'results/base_year/' + '52_weeks_analysis_' + date_i + '_before_' + base_year + '.csv'
+    results_path = util_s.base_year_results_path + '/' + 'daily_top10_results' + '/' + date_i
+    if not os.path.exists(results_52w_csv):
+        df_52w_csv = stock_52w_update(util_s.Krx_Char_folder_path, str(date.date()))
+    else:
+        df_52w_csv = pd.read_csv(results_52w_csv)
+    if not os.path.exists(results_52w_base_year_csv):
+        base_52w_csv = base_year_high_52_weeks(df_52w_csv, util_s.base_year, str(date.date()))
+    else:
+        base_52w_csv = pd.read_csv(results_52w_base_year_csv)
+    # path exist check
+    if not os.path.exists(results_path):
+        os.makedirs(results_path)
+    date += timedelta(days=i)
+    base_52w_csv_top_10 = base_52w_csv[:10]['stock'].values.tolist()
+    for j in base_52w_csv_top_10:
+        stock_results_list = []
+        for k in time_inv:
+            stock_csv = base_year_each_stock_analysis(j, base_year, date_i, path, k)
+            print(date)
+            if stock_csv is None:
+                continue
+            else:
+                stock_results_list.append(stock_csv.values.tolist()[0])
+                print(stock_csv)
+        df_save = DataFrame(stock_results_list, columns=['stock', 'high_date', 'gap', 'high', 'close_date',
+                                                         'close', 'upper_percent', 'short_golden', 'mid_golden', 'long_golden', 'rsi'])
+
+        df_save.to_csv(util_s.base_year_results_path + '/' + 'daily_top10_results' + '/' + date_i + '_results.csv', sep=',', na_rep='0', index=False,
+                  header=False)
+
+
+
+
 
 # Must move to main work's!
 # year_list = ['2014', '2015', '2016', '2017', '2018']

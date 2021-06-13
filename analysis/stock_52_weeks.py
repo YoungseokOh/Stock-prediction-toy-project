@@ -86,10 +86,12 @@ def stock_52w_stock_date_check(stock_name, base_year, date):
     stock_list_52w = []
     if type(stock_name) == type(str()):
         stock_csv = pykrx_read_csv(stock_name, util_52w.Krx_Char_folder_path)
-        close_price_day = stock_csv.iloc[len(stock_csv) - 1]['close']
+        nx = stock_csv.loc[stock_csv['date'] == str(date.date())].index
+        stock_csv = stock_csv.loc[:nx[0]]
+        close_price_day = stock_csv.iloc[nx[0]]['close']
         stock_52w_csv = stock_csv[stock_csv['date'] >= base_date.strftime("%Y-%m-%d")]
         high_price_52w = max(stock_52w_csv['high'].to_numpy())
-        last_open_day = stock_csv['date'].tail(1)
+        last_open_day = stock_csv['date'].tail(nx[0]-1)
         stock_date_52w = stock_52w_csv[stock_52w_csv['high'] == max(stock_52w_csv['high'])]['date']
         if '스팩' in stock_name:
             pass
@@ -112,4 +114,5 @@ def stock_52w_stock_date_check(stock_name, base_year, date):
         for stock_tic in stock_name:
             stock_52w_stock_date_check(stock_tic, base_year, date)
     df = pd.DataFrame(stock_list_52w)
+    df = df.rename(columns={0: 'stock', 1: 'date', 2: 'gap', 3: 'high'})
     return df

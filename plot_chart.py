@@ -68,7 +68,7 @@ def plot_technical_indicators(name, dataset, last_days):
     axv.yaxis.set_major_locator(mticker.MaxNLocator(nbins=5, prune='upper'))
 
     axv1 = plt.subplot2grid((6, 4), (5, 0), sharex=ax, rowspan=1, colspan=4)
-    axv1.xaxis.set_major_locator(mticker.MaxNLocator(10))
+    axv1.xaxis.set_major_locator(mticker.MaxNLocator(5))
     #axv1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     axv1.plot(dataset['rsi'], color='c', linewidth=0.5)
     axv1.set_yticks([30, 50, 70])
