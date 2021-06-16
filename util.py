@@ -3,7 +3,7 @@ from datetime import datetime
 
 class util:
     def __init__(self):
-        self.Krx_Char_folder_path = 'E:/Krx_Chart_folder'
+        self.Krx_Char_folder_path = './Krx_Chart_folder'
         self.base_year_results_path = 'results/base_year'
         self.this_year_results_path = 'results/this_year'
         self.base_year = '2021-01-01'

@@ -41,32 +41,37 @@ def pykrx_scratch_save_csv(ticker, date_Start, date_End, Krx_Char_folder_path):
         return 0
     df = df.reset_index()
     df = df.rename(columns={'날짜': 'date', '시가': 'open', '고가': 'high', '저가': 'low', '종가': 'close', '거래량': 'volume'})
-    if not os.path.exists(Krx_Char_folder_path + '/' + stock_name):
-        os.mkdir(Krx_Char_folder_path + '/' + stock_name)
-    df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0',
-              index=False, header=True)
+    if not os.path.exists(f"{Krx_Char_folder_path}/{stock_name}"):
+        os.makedirs(f"{Krx_Char_folder_path}/{stock_name}")
+    # df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0', index=False, header=True)
+    print(f"{Krx_Char_folder_path}/{stock_name}/{ticker}.csv")
+    df.to_csv(f"{Krx_Char_folder_path}/{stock_name}/{ticker}.csv", sep=',', na_rep='0', index=False, header=True)
     # print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
 
+
 def pykrx_scratch(date_Start, date_End, Krx_Char_folder_path):
-    print("Reading Daily Chart ... {} - {}".format(date_Start, date_End))
+    print(f"* KRX Chart Folder Path >>> {Krx_Char_folder_path}")
+    print(f"* Reading Daily Chart >>> {date_Start} - {date_End}")
     # create main folder
     if not os.path.exists(Krx_Char_folder_path):
         os.mkdir(Krx_Char_folder_path)
     # ticker scratch
     KOSPI_ticker_list = stock.get_market_ticker_list(market="KOSPI")
     KOSDAQ_ticker_list = stock.get_market_ticker_list(market="KOSDAQ")
+
     # KOSPI save as csv
     print('Reading KOSPI...')
     time.sleep(0.5)
-    for ticker_KOSPI in tqdm(KOSPI_ticker_list):
+    for ticker_KOSPI in tqdm(KOSPI_ticker_list, desc="from KOSPI"):
         pykrx_scratch_save_csv(ticker_KOSPI, date_Start, date_End, Krx_Char_folder_path)
 
     # KOSDAQ save as csv
     print('Reading KOSDAQ...')
     time.sleep(0.5)
-    for ticker_KOSDAQ in tqdm(KOSDAQ_ticker_list):
+    for ticker_KOSDAQ in tqdm(KOSDAQ_ticker_list, desc="from KOSDAQ"):
         pykrx_scratch_save_csv(ticker_KOSDAQ, date_Start, date_End, Krx_Char_folder_path)
     print('Scratching daily chart is done!')
+
 
 def pykrx_daily_update(Krx_Char_folder_path):
     today_date = datetime.today().strftime("%Y%m%d")

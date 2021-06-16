@@ -14,8 +14,8 @@ def search_listed_stock(year):
     one_year_ago = str(year - 1) + base_date[0]
 
 
-def stock_52w_gap_percentage(stock_name, one_year_ago):
-    stock_csv = pykrx_read_csv(stock_name, util_52w.Krx_Char_folder_path)
+def stock_52w_gap_percentage(stock_name, one_year_ago, Krx_Char_folder_path):
+    stock_csv = pykrx_read_csv(stock_name, Krx_Char_folder_path)
     stock_52w = stock_csv[stock_csv['date'] >= (one_year_ago).strftime("%Y-%m-%d")]
     high_price_52w = max(stock_52w['high'].to_numpy())
     close_price_day = stock_csv.iloc[len(stock_csv) - 1]['close']
