@@ -44,7 +44,7 @@ def pykrx_scratch_save_csv(ticker, date_Start, date_End, Krx_Char_folder_path):
     if not os.path.exists(f"{Krx_Char_folder_path}/{stock_name}"):
         os.makedirs(f"{Krx_Char_folder_path}/{stock_name}")
     # df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0', index=False, header=True)
-    print(f"{Krx_Char_folder_path}/{stock_name}/{ticker}.csv")
+    # print(f"{Krx_Char_folder_path}/{stock_name}/{ticker}.csv")
     df.to_csv(f"{Krx_Char_folder_path}/{stock_name}/{ticker}.csv", sep=',', na_rep='0', index=False, header=True)
     # print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
 

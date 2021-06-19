@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     # 52 weeks high price test...
     one_year_ago = datetime.now() - timedelta(days=365)
-    gap_prcentage, high_price_52w = stock_52w_gap_percentage(util_m.stock_name, one_year_ago)
+    gap_prcentage, high_price_52w = stock_52w_gap_percentage(util_m.stock_name, one_year_ago, util_m.Krx_Char_folder_path)
     # print('Gap is {}% from {}원'.format(round(gap_prcentage,4), format(high_price_52w, ',')))
 
     base_date = '2021-06-10'
