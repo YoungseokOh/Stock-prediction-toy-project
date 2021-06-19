@@ -32,6 +32,7 @@ def stock_52w_update(path, date):
         one_year_ago = util_52w.strdate_convert(date) - timedelta(days=365)
     stock_list_52w = []
     count = 0
+
     for stock_name in tqdm(krx_list):
         if '스팩' in stock_name:
             continue
@@ -61,11 +62,9 @@ def stock_52w_update(path, date):
         elif high_price_52w < close_price_day:
             gap_percentage = round(((close_price_day / high_price_52w) * 100) - 100, 4)
             # print('{} is already hit the 52 weeks target! Going up {}%'.format(stock_name, gap_percentage))
-    df = pd.DataFrame(stock_list_52w)
-    df = df.rename(columns={0: 'stock', 1: 'date', 2: 'gap', 3: 'high'})
+    df = pd.DataFrame(stock_list_52w, columns=['stock', 'date', 'gap', 'high'])
     df_csv = df.sort_values(by='gap', ascending=True)
-    df_csv.to_csv('results/this_year/' + '52_weeks_analysis_{}.csv'.format(date),
-                  encoding='utf-8', index=False, header=True)
+    df_csv.to_csv(f'results/this_year/52_weeks_analysis_{date}.csv', encoding='utf-8', index=False, header=True)
     return df_csv
 
 
