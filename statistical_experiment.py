@@ -9,7 +9,7 @@ import os
 from util import util
 
 matplotlib.rcParams['axes.unicode_minus'] = False
-
+util_s = util()
 # 1. RSI statistical analysis
 # 2. Analysis of 52 weeks high past history
 # 3. BB_band
@@ -210,6 +210,8 @@ def cal_golden_percent(stock_csv, date, nx_num):
         return 0
     else:
         nx = stock_csv.loc[stock_csv['date'] == date].index
+        if len(stock_csv)-1 < int(nx[0]) + int(nx_num):
+            return 0
         stock_ti_by_date = stock_csv.loc[int(nx[0]) + int(nx_num)]
         upper_percentage = util_s.cal_percent(int((stock_ti_by_date['upper_band'])), int(stock_ti_by_date['close']))
         short_golden = util_s.cal_percent(int(stock_ti_by_date['ema7']), int(stock_ti_by_date['ema50']))
@@ -232,58 +234,57 @@ def base_year_each_stock_analysis(stock_name, base_year, date, data_path ,nx_num
     df = df.rename(columns={0: 'stock', 1: 'high_date', 2: 'gap', 3: 'high', 4: 'close_date', 5: 'close', 6: 'upper_percent', 7:'short_golden', 8: 'mid_golden', 9: 'long_golden', 10: 'rsi'})
     return df
 
-
-util_s = util()
-stock_name = util_s.stock_name
-base_year = util_s.base_year
-date = '2021-03-11'
-path = util_s.Krx_Char_folder_path
-# stock_csv = base_year_each_stock_analysis(stock_name, base_year, date, path, 0) # zero means 'today'
-
-date = util_s.strdate_convert('2021-01-04') # from 2021.1.1
-timed = datetime.today() - date
-time_inv = [0, 1, 2, 7, 14]
-
-for i in tqdm(range(int(timed.days))):
-    date_i = str(date.date())
-    # print(date)
-    results_52w_csv = 'results/this_year/' + '52_weeks_analysis_' + date_i + '.csv'
-    results_52w_base_year_csv = 'results/base_year/' + '52_weeks_analysis_' + date_i + '_before_' + base_year + '.csv'
-    results_path = util_s.base_year_results_path + '/' + 'daily_top10_results' + '/' + date_i
-    if not os.path.exists(results_52w_csv):
-        df_52w_csv = stock_52w_update(util_s.Krx_Char_folder_path, str(date.date()))
-    else:
-        df_52w_csv = pd.read_csv(results_52w_csv)
-    if not os.path.exists(results_52w_base_year_csv):
-        base_52w_csv = base_year_high_52_weeks(df_52w_csv, util_s.base_year, str(date.date()))
-    else:
-        base_52w_csv = pd.read_csv(results_52w_base_year_csv)
-    base_52w_csv_top_10 = base_52w_csv[:10]['stock'].values.tolist()
-    date += timedelta(days=1)
-    for j in base_52w_csv_top_10:
-        stock_results_list = []
-        for k in time_inv:
-            stock_csv = base_year_each_stock_analysis(j, base_year, date_i, path, k)
-            if stock_csv is None:
-                print('stock_csv is none')
-                print(date)
+def base_year_top_10_anaysis(base_year, start_date, time_intrv, path):
+    date = datetime.strptime(start_date, "%Y-%m-%d")
+    timed = datetime.today() - date
+    for i in tqdm(range(int(timed.days))):
+        base_date = util_s.strdate_convert(base_year).date()
+        cur_date = date.date()
+        date_i = str(cur_date)
+        if not base_date < cur_date:
+            date += timedelta(days=1)
+            continue
+        # print(date)
+        results_52w_csv = 'results/this_year/' + '52_weeks_analysis_' + date_i + '.csv'
+        results_52w_base_year_csv = 'results/base_year/' + '52_weeks_analysis_' + date_i + '_before_' + base_year + '.csv'
+        results_path = util_s.base_year_results_path + '/' + 'daily_top10_results' + '/' + date_i
+        if not os.path.exists(results_52w_csv):
+            df_52w_csv = stock_52w_update(util_s.Krx_Char_folder_path, str(base_year))
+        else:
+            df_52w_csv = pd.read_csv(results_52w_csv)
+        if not os.path.exists(results_52w_base_year_csv):
+            base_52w_csv = base_year_high_52_weeks(df_52w_csv, base_year, str(date.date()))
+        else:
+            base_52w_csv = pd.read_csv(results_52w_base_year_csv)
+        base_52w_csv_top_10 = base_52w_csv[:10]['stock'].values.tolist()
+        for j in base_52w_csv_top_10:
+            stock_results_list = []
+            for k in time_intrv:
+                stock_csv = base_year_each_stock_analysis(j, base_year, date_i, path, k)
+                if stock_csv is None:
+                    break
+                else:
+                    stock_results_list.append(stock_csv.values.tolist()[0])
+            # path exist check
+            if not stock_results_list:
                 break
-            else:
-                stock_results_list.append(stock_csv.values.tolist()[0])
-        # path exist check
-        if not stock_results_list:
-            print('stock_results_lists is none')
-            print(date)
-            break
-        if not os.path.exists(results_path + '/' + j):
-            os.makedirs(results_path + '/' + j)
-        df_save = DataFrame(stock_results_list, columns=['stock', 'high_date', 'gap', 'high', 'close_date',
-                                                         'close', 'upper_percent', 'short_golden', 'mid_golden', 'long_golden', 'rsi'])
-        df_save.to_csv(results_path + '/' + j + '/' + date_i + '_results.csv', sep=',', na_rep='0', index=False,
-                  header=False)
+            if not os.path.exists(results_path + '/' + 'base_year_' + base_year + '/' + j):
+                os.makedirs(results_path + '/' + 'base_year_' + base_year + '/' + j)
+            df_save = DataFrame(stock_results_list, columns=['stock', 'high_date', 'gap', 'high', 'close_date',
+                                                             'close', 'upper_percent', 'short_golden', 'mid_golden',
+                                                             'long_golden', 'rsi'])
+            df_save.to_csv(results_path + '/' + 'base_year_' + base_year + '/' + j + '/' + date_i + '_results.csv',
+                           sep=',', na_rep='0', index=False,
+                           header=False)
+        date += timedelta(days=1)
 
 
-
+# Top 10 on base_year save
+year = '2021-03-01'
+date = '2021-02-28' # from 2021.1.1
+time = [0, 1, 2, 7, 14]
+path = util_s.Krx_Char_folder_path
+base_year_top_10_anaysis(year, date, time, path)
 
 
 

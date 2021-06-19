@@ -7,7 +7,7 @@ class util:
         self.base_year_results_path = './results/base_year'
         self.this_year_results_path = './results/this_year'
         self.base_year = '2021-01-01'
-        self.stock_name = "대신증권우"
+        self.stock_name = "GS리테일"
         self.from_date = '20190101'
         self.today_date = datetime.today().strftime("%Y%m%d")
 

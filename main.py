@@ -15,7 +15,7 @@ import yfinance as yf
 if __name__ == '__main__':
     util_m = util()
     # Pykrx scratch Test...
-    pykrx_scratch(util_m.from_date, util_m.today_date, util_m.Krx_Char_folder_path) # KOSPI & KOSDAQ all stock scratch
+    # pykrx_scratch(util_m.from_date, util_m.today_date, util_m.Krx_Char_folder_path) # KOSPI & KOSDAQ all stock scratch
     # pykrx_daily_update(util_m.Krx_Char_folder_path) # Today update
     stock_csv = pykrx_read_csv(util_m.stock_name, util_m.Krx_Char_folder_path)
     # trainer = Model(opt)
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     gap_prcentage, high_price_52w = stock_52w_gap_percentage(util_m.stock_name, one_year_ago, util_m.Krx_Char_folder_path)
     # print('Gap is {}% from {}원'.format(round(gap_prcentage,4), format(high_price_52w, ',')))
 
-    base_date = '2021-06-10'
+    base_date = '2021-06-17'
     results_52w_csv = 'results/this_year/' + '52_weeks_analysis_' + base_date + '.csv'
     if not os.path.exists(results_52w_csv):
         # Hit the high in 52 weeks until today

@@ -73,8 +73,10 @@ def base_year_high_52_weeks(df, base_year, date):
     stock_csv = df
     stock_date_52w = stock_csv[stock_csv['high'] == max(stock_csv['high'])]['date']
     stock_csv = stock_csv[stock_csv['date'] < base_year]
+    if not os.path.exists('results/base_year/{}'.format(base_year)):
+        os.makedirs('results/base_year/{}'.format(base_year))
     stock_csv.to_csv(
-        'results/base_year/' + '52_weeks_analysis_{}_before_{}.csv'.format(date,
+        'results/base_year/{}'.format(base_year) + '/' + '52_weeks_analysis_{}_before_{}.csv'.format(date,
                                                                            base_year),
         encoding='utf-8', index=False, header=True)
     return stock_csv
