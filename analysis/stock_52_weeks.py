@@ -87,6 +87,8 @@ def stock_52w_stock_date_check(stock_name, base_year, date):
     if type(stock_name) == type(str()):
         stock_csv = pykrx_read_csv(stock_name, util_52w.Krx_Char_folder_path)
         nx = stock_csv.loc[stock_csv['date'] == str(date.date())].index
+        if nx.empty:
+            return None
         stock_csv = stock_csv.loc[:nx[0]]
         close_price_day = stock_csv.iloc[nx[0]]['close']
         stock_52w_csv = stock_csv[stock_csv['date'] >= base_date.strftime("%Y-%m-%d")]

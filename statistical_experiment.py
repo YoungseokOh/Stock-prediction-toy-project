@@ -219,6 +219,8 @@ def cal_golden_percent(stock_csv, date, nx_num):
 
 def base_year_each_stock_analysis(stock_name, base_year, date, data_path ,nx_num):
     stock_base_year = stock_52w_stock_date_check(stock_name, base_year, date)
+    if stock_base_year is None:
+        return None
     stock_ti = cal_technical_indicator_name(stock_base_year['stock'][0], data_path)
     if cal_golden_percent(stock_ti, date, nx_num) == 0:
         return None
@@ -238,14 +240,13 @@ date = '2021-03-11'
 path = util_s.Krx_Char_folder_path
 # stock_csv = base_year_each_stock_analysis(stock_name, base_year, date, path, 0) # zero means 'today'
 
-date = util_s.strdate_convert('2021-01-10') # from 2021.1.1
+date = util_s.strdate_convert('2021-01-04') # from 2021.1.1
 timed = datetime.today() - date
 time_inv = [0, 1, 2, 7, 14]
 
 for i in tqdm(range(int(timed.days))):
     date_i = str(date.date())
-    date += timedelta(days=i)
-    print(date)
+    # print(date)
     results_52w_csv = 'results/this_year/' + '52_weeks_analysis_' + date_i + '.csv'
     results_52w_base_year_csv = 'results/base_year/' + '52_weeks_analysis_' + date_i + '_before_' + base_year + '.csv'
     results_path = util_s.base_year_results_path + '/' + 'daily_top10_results' + '/' + date_i
@@ -258,21 +259,29 @@ for i in tqdm(range(int(timed.days))):
     else:
         base_52w_csv = pd.read_csv(results_52w_base_year_csv)
     base_52w_csv_top_10 = base_52w_csv[:10]['stock'].values.tolist()
+    date += timedelta(days=1)
     for j in base_52w_csv_top_10:
-        # path exist check
-        if not os.path.exists(results_path + '/' + j):
-            os.makedirs(results_path + '/' + j)
         stock_results_list = []
         for k in time_inv:
             stock_csv = base_year_each_stock_analysis(j, base_year, date_i, path, k)
             if stock_csv is None:
-                continue
+                print('stock_csv is none')
+                print(date)
+                break
             else:
                 stock_results_list.append(stock_csv.values.tolist()[0])
+        # path exist check
+        if not stock_results_list:
+            print('stock_results_lists is none')
+            print(date)
+            break
+        if not os.path.exists(results_path + '/' + j):
+            os.makedirs(results_path + '/' + j)
         df_save = DataFrame(stock_results_list, columns=['stock', 'high_date', 'gap', 'high', 'close_date',
                                                          'close', 'upper_percent', 'short_golden', 'mid_golden', 'long_golden', 'rsi'])
         df_save.to_csv(results_path + '/' + j + '/' + date_i + '_results.csv', sep=',', na_rep='0', index=False,
                   header=False)
+
 
 
 
