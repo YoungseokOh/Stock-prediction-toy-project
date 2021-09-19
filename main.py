@@ -15,7 +15,7 @@ import yfinance as yf
 if __name__ == '__main__':
     util_m = util()
     # Pykrx scratch Test...
-    # pykrx_scratch(util_m.from_date, util_m.today_date, util_m.Krx_Char_folder_path) # KOSPI & KOSDAQ all stock scratch
+    pykrx_scratch(util_m.from_date, util_m.today_date, util_m.Krx_Char_folder_path) # KOSPI & KOSDAQ all stock scratch
     # pykrx_daily_update(util_m.Krx_Char_folder_path) # Today update
     stock_csv = pykrx_read_csv(util_m.stock_name, util_m.Krx_Char_folder_path)
     # trainer = Model(opt)

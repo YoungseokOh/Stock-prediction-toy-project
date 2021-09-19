@@ -10,27 +10,54 @@ locale.setlocale(locale.LC_ALL, 'ko_KR')
 class SmaCross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
-        pfast=5,  # period for the fast moving average
-        pslow=30  # period for the slow moving average
+        p_short=5,  # period for the fast moving average
+        p_middle=20,  # period for the slow moving average
+        p_long=100,
     )
 
     def __init__(self):
-        sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
-        sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
-        self.crossover = bt.ind.CrossOver(sma1, sma2)  # crossover signal
-
+        ema1 = bt.ind.EMA(period=self.p.p_short)  # fast moving average
+        ema2 = bt.ind.EMA(period=self.p.p_middle)  # slow moving average
+        self.crossover = bt.ind.CrossOver(ema1, ema2)  # crossover signal
+        self.rsi_14 = bt.ind.RSI_EMA(period=14)
         self.holding = 0
 
     def next(self):
         current_stock_price = self.data.close[0]
 
         if not self.position:  # not in the market
-            if self.crossover > 0:  # if fast crosses slow to the upside
+            if self.crossover < 0:  # if fast crosses slow to the upside
                 available_stocks = self.broker.getcash() / current_stock_price
-                self.buy(size=1)
+                self.buy(size=int((available_stocks) * 0.3))
+            if self.rsi_14 < 20:
+                # print(self.broker.getcash())
+                available_stocks = self.broker.getcash() / current_stock_price
+                self.buy(size=int((available_stocks) * 0.7))
+        elif self.position:
+            if self.crossover < 0:
+                available_stocks = self.broker.getcash() / current_stock_price
+                self.buy(size=int((available_stocks) * 0.2))
+            if self.rsi_14 < 30:
+                available_stocks = self.broker.getcash() / current_stock_price
+                self.buy(size=int((available_stocks) * 0.15))
+        # if self.rsi_14 < 10:
+        #     # print(self.broker.getcash())
+        #     available_stocks = self.broker.getcash() / current_stock_price
+        #     self.buy(size=int((available_stocks) * 0.5))
 
-        elif self.crossover < 0:  # in the market & cross to the downside
-            self.close()  # close long position
+        elif self.crossover > 0:  # in the market & cross to the downside
+            available_stocks = self.broker.getcash() / current_stock_price
+            if int((self.holding) * 0.15) > 0:
+                self.sell(size=int((self.holding) * 0.5))
+            else:
+                self.close()
+            # self.close()  # close long position
+        if self.rsi_14 >= 70:
+            available_stocks = self.broker.getcash() / current_stock_price
+            if int((self.holding) * 0.15) > 0:
+                self.sell(size=int((self.holding) * 0.25))
+            else:
+                self.close()
 
     def notify_order(self, order):
         if order.status not in [order.Completed]:
@@ -51,11 +78,12 @@ class SmaCross(bt.Strategy):
 
 
 util_bt = util()
-stock_csv = pykrx_read_csv(util_bt.stock_name, util_bt.Krx_Char_folder_path)
+stock_name = '코리아센터'
+stock_csv = pykrx_read_csv(stock_name, util_bt.Krx_Char_folder_path)
 stock_csv['date'] = pd.to_datetime(stock_csv['date'])
 stock_csv.set_index(stock_csv['date'], inplace=True)
 cerebro = bt.Cerebro()  # create a "Cerebro" engine instance
-cerebro.broker.setcash(100000)
+cerebro.broker.setcash(1000000)
 cerebro.broker.setcommission(0.002)
 
 
@@ -72,6 +100,6 @@ final_value = cerebro.broker.getvalue()
 
 print('* start value : %s won' % locale.format_string('%d', start_value, grouping=True))
 print('* final value : %s won' % locale.format_string('%d', final_value, grouping=True))
-print('* earning rate : %.2f %%' % ((final_value - start_value) / start_value * 100.0))
+print('* earning rate : %.2f %%' % ((final_value - start_value)/ start_value * 100.0))
 
 cerebro.plot()  # and plot it with a single command
