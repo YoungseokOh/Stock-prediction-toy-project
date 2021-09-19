@@ -1,4 +1,9 @@
 # Stock_Prediction_Toy_Project
+>### Backtesting (RSI & EMA CrossOver)
+<p align="center">
+  <img src="results/backtesting_sample.png" width="600"/>
+</p>
+
 >### Plot chart
 <p align="center">
   <img src="results/코리아센터.png" width="600"/>
