@@ -7,7 +7,7 @@ from krx_wr_script import *
 locale.setlocale(locale.LC_ALL, 'ko_KR')
 
 # Create a subclass of Strategy to define the indicators and logic
-class SmaCross(bt.Strategy):
+class EmaCross(bt.Strategy):
     # list of parameters which are configurable for the strategy
     params = dict(
         p_short=5,  # period for the fast moving average
@@ -86,13 +86,12 @@ cerebro = bt.Cerebro()  # create a "Cerebro" engine instance
 cerebro.broker.setcash(1000000)
 cerebro.broker.setcommission(0.002)
 
-
 # Create a data feed
 data = bt.feeds.PandasData(dataname=stock_csv)
 
 cerebro.adddata(data)  # Add the data feed
 
-cerebro.addstrategy(SmaCross)  # Add the trading strategy
+cerebro.addstrategy(EmaCross)  # Add the trading strategy
 
 start_value = cerebro.broker.getvalue()
 cerebro.run()  # run it all

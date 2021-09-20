@@ -240,8 +240,8 @@ def base_year_top_10_anaysis(base_year, start_date, time_intrv, path):
     for i in tqdm(range(int(timed.days))):
         base_date = util_s.strdate_convert(base_year).date()
         cur_date = date.date()
-        date_i = str(cur_date)
-        if not base_date < cur_date:
+        date_i = str(date.date())
+        if base_date > cur_date:
             date += timedelta(days=1)
             continue
         # print(date)
@@ -249,7 +249,7 @@ def base_year_top_10_anaysis(base_year, start_date, time_intrv, path):
         results_52w_base_year_csv = 'results/base_year/' + '52_weeks_analysis_' + date_i + '_before_' + base_year + '.csv'
         results_path = util_s.base_year_results_path + '/' + 'daily_top10_results' + '/' + date_i
         if not os.path.exists(results_52w_csv):
-            df_52w_csv = stock_52w_update(util_s.Krx_Char_folder_path, str(base_year))
+            df_52w_csv = stock_52w_update(util_s.Krx_Char_folder_path, str(date.date()))
         else:
             df_52w_csv = pd.read_csv(results_52w_csv)
         if not os.path.exists(results_52w_base_year_csv):
@@ -278,14 +278,49 @@ def base_year_top_10_anaysis(base_year, start_date, time_intrv, path):
                            header=False)
         date += timedelta(days=1)
 
+def base_year_dolpa_analysis(base_year, start_date, time_intrv, path):
+    date = datetime.strptime(start_date, "%Y-%m-%d")
+    timed = datetime.today() - date
+    for i in tqdm(range(int(timed.days))):
+        base_date = util_s.strdate_convert(base_year).date()
+        cur_date = date.date()
+        date_i = str(date.date())
+        if base_date > cur_date:
+            date += timedelta(days=1)
+            continue
+        # print(date)
+        results_52w_csv = 'results/this_year/' + '52_weeks_analysis_' + date_i + '.csv'
+        results_52w_base_year_csv = 'results/base_year/' + '52_weeks_analysis_' + date_i + '_before_' + base_year + '.csv'
+        results_path = util_s.base_year_results_path + '/' + 'daily_top10_results' + '/' + date_i
+        if not os.path.exists(results_52w_csv):
+            df_52w_csv = stock_52w_update(util_s.Krx_Char_folder_path, str(date.date()))
+        else:
+            df_52w_csv = pd.read_csv(results_52w_csv)
+        if not os.path.exists(results_52w_base_year_csv):
+            base_52w_csv = base_year_high_52_weeks(df_52w_csv, base_year, str(date.date()))
+        else:
+            base_52w_csv = pd.read_csv(results_52w_base_year_csv)
+        base_52w_csv_top_10 = base_52w_csv[:10]['stock'].values.tolist()
+        for j in base_52w_csv_top_10:
+            stock_results_list = []
+            dolpa_stock_date_check(j, base_year, start_date)
+            for k in time_intrv:
+                stock_csv = base_year_each_stock_analysis(j, base_year, date_i, path, k)
+                if stock_csv is None:
+                    break
+                else:
+                    stock_results_list.append(stock_csv.values.tolist()[0])
+            # path exist check
+
 
 # Top 10 on base_year save
-year = '2021-03-01'
-date = '2021-02-28' # from 2021.1.1
+year = '2021-01-01'
+date = '2021-01-04' # from 2021.1.1
 time = [0, 1, 2, 7, 14]
+time_inv_dolpa = [1, 2, 3, 4, 5]
 path = util_s.Krx_Char_folder_path
-base_year_top_10_anaysis(year, date, time, path)
-
+# base_year_top_10_anaysis(year, date, time, path)
+base_year_dolpa_analysis(year, date, time_inv_dolpa, path)
 
 
 # Must move to main work's!
