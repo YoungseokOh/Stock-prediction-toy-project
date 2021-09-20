@@ -36,7 +36,7 @@
 >### Setup
 ```
 + python 3.8
-pip install backtrader requests
+pip install backtrader requests tabulate
 pip install finta 
 pip install matplotlib
 pip install pandas 

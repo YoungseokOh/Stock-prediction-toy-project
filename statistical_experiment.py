@@ -14,6 +14,7 @@ util_s = util()
 # 2. Analysis of 52 weeks high past history
 # 3. BB_band
 
+
 def stock_year_list(year):
     stcal_ex = util('E:/{}_Stocks'.format(year))
     Krx_Char_folder_path = stcal_ex.Krx_Char_folder_path
@@ -27,6 +28,7 @@ def stock_year_list(year):
         print('Folder is existed. Path is {}'.format(Krx_Char_folder_path))
     stock_list = os.listdir(Krx_Char_folder_path)
     return stock_list, Krx_Char_folder_path
+
 
 def plot_year_results(results_list, title_save):
     year_results = results_list
@@ -54,6 +56,7 @@ def plot_year_results(results_list, title_save):
     autolabel(next_months)
     fig.gca()
     fig.savefig('../results/{}_year_results_+-version.png'.format(title_save))
+
 
 def BB_band_year_test(year_list):
     year_results = []
@@ -100,6 +103,7 @@ def BB_band_year_test(year_list):
     year_results = pd.DataFrame(year_results)
     return year_results
 
+
 def rsi_year_test(year_list):
     year_results = []
     for year in year_list:
@@ -135,40 +139,6 @@ def rsi_year_test(year_list):
     year_results = pd.DataFrame(year_results)
     return year_results
 
-def uo_year_test(year_list):
-    year_results = []
-    for year in year_list:
-        stock_list, year_path = stock_year_list(year)
-        stock_rsi_day = []
-        stock_rsi_next_day = []
-        stock_rsi_next_month = []
-        for stock in tqdm(stock_list):
-            stock_csv = cal_technical_indicator_high_class(stock, year_path)
-            if stock_csv.empty:
-                print('This stock is empty : {}'.format(stock))
-                continue
-            if '스팩' in stock:
-                continue
-            if len(stock_csv['date']) < 200:
-                continue
-            stock_csv_uo = sorting_by_column(stock_csv, 'uo', True, 20)
-            stock_csv_uo = stock_csv_uo.dropna(axis=0) # zero handling
-            nx = stock_csv.loc[stock_csv['date'] == stock_csv_uo['date'].iloc[0]].index
-            if nx[0] == (len(stock_csv['date']) - 1):
-                continue
-            stock_csv_next_day = stock_csv.loc[int(nx[0]) + 1]
-            if stock_csv.index[-1] <= int(nx[0]) + 15:
-                continue
-            stock_csv_next_month = stock_csv.loc[int(nx[0]) + 15]
-            stock_rsi_next_day.append([str(stock), (((stock_csv_next_day['close'] - stock_csv_uo['close'].iloc[0]) / stock_csv_uo['close'].iloc[0]) * 100)])
-            stock_rsi_next_month.append([str(stock), (((stock_csv_next_month['close'] - stock_csv_uo['close'].iloc[0]) / stock_csv_uo['close'].iloc[0]) * 100)])
-            stock_rsi_next_day = pd.DataFrame(stock_rsi_next_day)
-            stock_rsi_next_month = pd.DataFrame(stock_rsi_next_month)
-        year_results.append([year, stock_rsi_next_day[1].sum() / len(stock_rsi_next_day), stock_rsi_next_month[1].sum() / len(stock_rsi_next_month)])
-        print(stock_rsi_next_day[1].sum() / len(stock_rsi_next_day))
-        print(stock_rsi_next_month[1].sum() / len(stock_rsi_next_month))
-    year_results = pd.DataFrame(year_results)
-    return year_results
 
 def uo_year_test(year_list):
     year_results = []
@@ -204,6 +174,43 @@ def uo_year_test(year_list):
         print(stock_rsi_next_month[1].sum() / len(stock_rsi_next_month))
     year_results = pd.DataFrame(year_results)
     return year_results
+
+
+def uo_year_test(year_list):
+    year_results = []
+    for year in year_list:
+        stock_list, year_path = stock_year_list(year)
+        stock_rsi_day = []
+        stock_rsi_next_day = []
+        stock_rsi_next_month = []
+        for stock in tqdm(stock_list):
+            stock_csv = cal_technical_indicator_high_class(stock, year_path)
+            if stock_csv.empty:
+                print('This stock is empty : {}'.format(stock))
+                continue
+            if '스팩' in stock:
+                continue
+            if len(stock_csv['date']) < 200:
+                continue
+            stock_csv_uo = sorting_by_column(stock_csv, 'uo', True, 20)
+            stock_csv_uo = stock_csv_uo.dropna(axis=0) # zero handling
+            nx = stock_csv.loc[stock_csv['date'] == stock_csv_uo['date'].iloc[0]].index
+            if nx[0] == (len(stock_csv['date']) - 1):
+                continue
+            stock_csv_next_day = stock_csv.loc[int(nx[0]) + 1]
+            if stock_csv.index[-1] <= int(nx[0]) + 15:
+                continue
+            stock_csv_next_month = stock_csv.loc[int(nx[0]) + 15]
+            stock_rsi_next_day.append([str(stock), (((stock_csv_next_day['close'] - stock_csv_uo['close'].iloc[0]) / stock_csv_uo['close'].iloc[0]) * 100)])
+            stock_rsi_next_month.append([str(stock), (((stock_csv_next_month['close'] - stock_csv_uo['close'].iloc[0]) / stock_csv_uo['close'].iloc[0]) * 100)])
+            stock_rsi_next_day = pd.DataFrame(stock_rsi_next_day)
+            stock_rsi_next_month = pd.DataFrame(stock_rsi_next_month)
+        year_results.append([year, stock_rsi_next_day[1].sum() / len(stock_rsi_next_day), stock_rsi_next_month[1].sum() / len(stock_rsi_next_month)])
+        print(stock_rsi_next_day[1].sum() / len(stock_rsi_next_day))
+        print(stock_rsi_next_month[1].sum() / len(stock_rsi_next_month))
+    year_results = pd.DataFrame(year_results)
+    return year_results
+
 
 def cal_golden_percent(stock_csv, date, nx_num):
     if not (stock_csv['date'] == date).any():
@@ -219,6 +226,7 @@ def cal_golden_percent(stock_csv, date, nx_num):
         long_golden = util_s.cal_percent(int(stock_ti_by_date['ema7']), int(stock_ti_by_date['ema99']))
         return list([stock_ti_by_date['date'], stock_ti_by_date['close'], upper_percentage, short_golden, mid_golden, long_golden, round(stock_ti_by_date['rsi'], 2)])
 
+
 def base_year_each_stock_analysis(stock_name, base_year, date, data_path ,nx_num):
     stock_base_year = stock_52w_stock_date_check(stock_name, base_year, date)
     if stock_base_year is None:
@@ -233,6 +241,7 @@ def base_year_each_stock_analysis(stock_name, base_year, date, data_path ,nx_num
     df = pd.DataFrame(stock_base_year)
     df = df.rename(columns={0: 'stock', 1: 'high_date', 2: 'gap', 3: 'high', 4: 'close_date', 5: 'close', 6: 'upper_percent', 7:'short_golden', 8: 'mid_golden', 9: 'long_golden', 10: 'rsi'})
     return df
+
 
 def base_year_top_10_anaysis(base_year, start_date, time_intrv, path):
     date = datetime.strptime(start_date, "%Y-%m-%d")
@@ -277,6 +286,7 @@ def base_year_top_10_anaysis(base_year, start_date, time_intrv, path):
                            sep=',', na_rep='0', index=False,
                            header=False)
         date += timedelta(days=1)
+
 
 def base_year_dolpa_analysis(base_year, start_date, time_intrv, path):
     date = datetime.strptime(start_date, "%Y-%m-%d")
