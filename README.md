@@ -38,7 +38,7 @@
 + python 3.8
 pip install backtrader requests tabulate
 pip install finta 
-pip install matplotlib
+pip install matplotlib==3.2.2
 pip install pandas 
 pip install pykrx 
 pip install mplfinance
@@ -48,5 +48,6 @@ pip install scikit-learn
 pip install tqdm
 pip install trendln
 pip install yfinance
+(Optional) pip install BeautifulSoup4
 (Optional) pip install tensorflow==2.2.0
 ```

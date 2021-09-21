@@ -125,4 +125,5 @@ for i in tqdm(stock_list):
                   'win': earning_rate > buy_hold})
     # print(i)
 print(tabulate(stats, headers='keys'))
+
 cerebro.plot()  # and plot it with a single command
