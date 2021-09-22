@@ -3,13 +3,16 @@ import os
 
 class util:
     def __init__(self):
-        self.Krx_Char_folder_path = './Krx_Chart_folder'
+        self.Krx_Char_folder_path = './krx_ohlcv'
+        self.results_path = './results'
         self.base_year_results_path = './results/base_year'
         self.this_year_results_path = './results/this_year'
         self.base_year = '2021-01-01'
         self.stock_name = "GS리테일"
         self.from_date = '20190101'
         self.today_date = datetime.today().strftime("%Y%m%d")
+        self.KOSPI_CODE = 0
+        self.KOSDAQ_CODE = 1
 
 
     def get_today_ymd(self):

@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
+from util import *
 
 
 BASE_URL = "https://finance.naver.com/sise/sise_market_sum.naver?sosok="
@@ -47,9 +48,15 @@ def main(code):
         save_name = 'KOSDAQ'
     df.to_csv('./results/NaverFinance_data_{}.csv'.format(save_name))
     print('{} finance data is saved!'.format(save_name))
+    return df
 
 if __name__ == '__main__':
+    df_comb = []
+    util_cw = util()
     CODE_LIST = [KOSPI_CODE, KOSDAQ_CODE]
     for i in CODE_LIST:
-        main(i)
+        df = main(i)
+        df_comb.append(df)
+    pd_comb = pd.concat([df_comb[0], df_comb[len(df_comb)-1]])
+    pd_comb.to_csv(f"{util_cw.results_path}/NaverFinance_data.csv")
     print('Works are done!')

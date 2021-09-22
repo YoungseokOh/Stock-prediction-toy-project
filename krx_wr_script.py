@@ -10,6 +10,7 @@ from tqdm import tqdm
 import numpy as np
 condition = '.csv'
 
+
 def search(data_path, extension):
     """Returns the list of files have extension (only current directory)
     Args:
@@ -25,28 +26,25 @@ def search(data_path, extension):
             file_list.append(data_path+'/'+filename)
     return file_list
 
+
 def pykrx_save_csv(df, stock_name, path):
     save_path = path + '/' + stock_name
     df.to_csv(save_path + '/' + stock_name + '.csv', sep=',', na_rep='0', index=False, header=True)
 
+
 def pykrx_scratch_save_csv(ticker, date_Start, date_End, Krx_Char_folder_path):
     stock_name = stock.get_market_ticker_name(ticker)
-    stock_folder_name = stock_name + '_' + ticker
+    # Get OHLCV
     df = stock.get_market_ohlcv_by_date(date_Start, date_End, ticker)
     if df.empty:
-        # print('This stock is empty : {}'.format(stock_name))
         return 0
     if df['시가'].iloc[0] == 0:
-        # print('This stock\'s \'open\' doesn\'t exists : {}'.format(stock_name))
         return 0
     df = df.reset_index()
     df = df.rename(columns={'날짜': 'date', '시가': 'open', '고가': 'high', '저가': 'low', '종가': 'close', '거래량': 'volume'})
     if not os.path.exists(f"{Krx_Char_folder_path}/{stock_name}"):
         os.makedirs(f"{Krx_Char_folder_path}/{stock_name}")
-    # df.to_csv(Krx_Char_folder_path + '/' + stock_name + '/' + ticker + '.csv', sep=',', na_rep='0', index=False, header=True)
-    # print(f"{Krx_Char_folder_path}/{stock_name}/{ticker}.csv")
     df.to_csv(f"{Krx_Char_folder_path}/{stock_name}/{ticker}.csv", sep=',', na_rep='0', index=False, header=True)
-    # print('{} Daily chart saved! ==== ticker is : {}'.format(stock_name, ticker))
 
 
 def pykrx_scratch(date_Start, date_End, Krx_Char_folder_path):
@@ -98,6 +96,7 @@ def pykrx_daily_update(Krx_Char_folder_path):
         print('{} Daily chart update is done!'.format(stock_name))
         count += 1
 
+
 def pykrx_read_csv(stock_name, Krx_Char_folder_path):
     csv_file_path = search(Krx_Char_folder_path + '/' + stock_name, condition)
     if os.path.exists(csv_file_path[0]):
@@ -106,6 +105,7 @@ def pykrx_read_csv(stock_name, Krx_Char_folder_path):
         print('Can''t find csv file!')
     return stock_csv
     print('read done!')
+
 
 def pykrx_read_train_set(stock_csv):
      df = stock_csv

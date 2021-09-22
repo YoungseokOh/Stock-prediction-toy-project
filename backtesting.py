@@ -5,6 +5,8 @@ from util import *
 from krx_wr_script import *
 from tabulate import tabulate
 from tqdm import tqdm
+from strategy import Finance
+
 locale.setlocale(locale.LC_ALL, 'ko_KR')
 
 # Create a subclass of Strategy to define the indicators and logic
@@ -80,17 +82,25 @@ class EmaCross(bt.Strategy):
 
 
 util_bt = util()
+Finance = Finance()
 stats = []
 stock_name = '코리아센터'
 stock_list = util.read_folder_list(True, util_bt.Krx_Char_folder_path)
 for i in tqdm(stock_list):
     stock_csv = pykrx_read_csv(i, util_bt.Krx_Char_folder_path)
+    print(Finance.bt_fin_data)
+    finance_csv = Finance.load_data(Finance.bt_fin_data)
+
+    ## Optional
+    # refine_data
+
     if len(stock_csv) < 30:
         continue
-    if '스팩' in i:
-        continue
-    if '리츠' in i:
-        continue
+    for w in Finance.filter_words:
+        if w in i:
+            continue
+
+    stock_csv = stock_csv.loc[stock_csv['date'] > util_bt.base_year]
     stock_csv['date'] = pd.to_datetime(stock_csv['date'])
     stock_csv.set_index(stock_csv['date'], inplace=True)
     del(stock_csv['date'])
@@ -101,9 +111,7 @@ for i in tqdm(stock_list):
 
     # Create a data feed
     data = bt.feeds.PandasData(dataname=stock_csv)
-
     cerebro.adddata(data)  # Add the data feed
-
     cerebro.addstrategy(EmaCross)  # Add the trading strategy
 
     start_value = cerebro.broker.getvalue()
